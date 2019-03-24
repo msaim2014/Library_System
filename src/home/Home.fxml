@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.Controller">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="-8.0" prefHeight="546.0" prefWidth="206.0" style="-fx-background-color: #EBE8F9;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="86.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/bulb.jpg" />
+               </image>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin></ImageView>
+            <Label text="Scooby Doo">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="203.0" stylesheets="@Style.css" text="Overview">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/home.png" />
+                     </image></ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="203.0" stylesheets="@Style.css" text="Search Books">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/search.png" />
+                     </image></ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="203.0" stylesheets="@Style.css" text="My Account">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/account.png" />
+                     </image></ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="210.0" stylesheets="@Style.css" text="Manage Books">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/manage.png" />
+                     </image></ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="203.0" stylesheets="@Style.css" text="Sign Out">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/signout.png" />
+                     </image></ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+         </children>
+      </VBox>
+      <Label layoutX="252.0" layoutY="48.0" text="Library System">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="248.0" layoutY="93.0" prefHeight="58.0" prefWidth="830.0" spacing="40.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="5" textFill="BLUE">
+                     <font>
+                        <Font name="System Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Checked Out" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="04/24/19" textFill="GREEN">
+                     <font>
+                        <Font name="System Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Next Due Date" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="2" textFill="RED">
+                     <font>
+                        <Font name="System Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Books Reserved" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="248.0" layoutY="165.0" prefHeight="58.0" prefWidth="830.0" style="-fx-background-color: #F3F3F3;">
+         <children>
+            <Label prefHeight="17.0" prefWidth="30.0" text="ISBN">
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+            </Label>
+            <Label prefHeight="17.0" prefWidth="27.0" text="Title">
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Author">
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Date">
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Description/Genre">
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Status">
+               <HBox.margin>
+                  <Insets left="80.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="1055.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/search.png" />
+         </image>
+      </ImageView>
+      <ScrollPane layoutX="252.0" layoutY="223.0" prefHeight="300.0" prefWidth="830.0">
+         <content>
+            <VBox fx:id="prItems" prefHeight="289.0" prefWidth="825.0" />
+         </content>
+      </ScrollPane>
+      <TextField layoutX="897.0" layoutY="13.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+   </children>
+</AnchorPane>
