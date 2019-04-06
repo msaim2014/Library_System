@@ -5,14 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="840.0" style="-fx-background-color: #F3F3F3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="840.0" style="-fx-background-color: #F3F3F3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ItemsController">
    <children>
       <Label prefHeight="17.0" prefWidth="20.0" text="01">
          <HBox.margin>
             <Insets left="80.0" />
          </HBox.margin>
       </Label>
-      <Label prefHeight="17.0" prefWidth="77.0" text="Harry Potter">
+      <Label fx:id="title" prefHeight="17.0" prefWidth="77.0" text="Harry Potter">
          <HBox.margin>
             <Insets left="80.0" />
          </HBox.margin>

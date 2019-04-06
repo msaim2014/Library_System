@@ -55,7 +55,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="userRegister" layoutX="367.0" layoutY="233.0" mnemonicParsing="false" style="-fx-border-radius: 20; -fx-background-color: white; -fx-border-color: black;" text="Register">
+      <Button fx:id="userRegister" layoutX="367.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" style="-fx-border-radius: 20; -fx-background-color: white; -fx-border-color: black;" text="Register">
          <font>
             <Font name="SansSerif Regular" size="12.0" />
          </font>
