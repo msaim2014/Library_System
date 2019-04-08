@@ -34,7 +34,10 @@ public class HomeController implements Initializable {
     @FXML private VBox prItems = null;
     @FXML private Label name;
     @FXML private Button addBookButton;
+<<<<<<< HEAD
     @FXML private Button returnBookButton;
+=======
+>>>>>>> 4d3334ebe1bed2c25cc1764984840f2396358ef8
     @FXML private Label additionLabel;
 
     @FXML private TableView<ModelTable> table;
@@ -49,9 +52,13 @@ public class HomeController implements Initializable {
     Connection conn = null;
     ObservableList<ModelTable> observableList = FXCollections.observableArrayList();
     PreparedStatement addBook = null;
+<<<<<<< HEAD
     PreparedStatement returnBook = null;
     PreparedStatement checkBook = null;
     ResultSet res = null;
+=======
+    PreparedStatement checkBook = null;
+>>>>>>> 4d3334ebe1bed2c25cc1764984840f2396358ef8
 
     private String isbn;
     private String title;
@@ -74,6 +81,7 @@ public class HomeController implements Initializable {
             addBook.setString(4, genre);
             addBook.setString(5, checkOut);
             addBook.setString(6, checkIn);
+<<<<<<< HEAD
             int num = addBook.executeUpdate();
 
             additionLabel.setText("Checked Out: " + title);
@@ -100,6 +108,18 @@ public class HomeController implements Initializable {
     }
 
     public boolean hasBook(){return true;}
+=======
+            addBook.executeUpdate();
+            additionLabel.setText("Added:" + title);
+            updateBookAvailability();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //public boolean hasBook(){}
+
+>>>>>>> 4d3334ebe1bed2c25cc1764984840f2396358ef8
     public void updateBookAvailability(){ }
 
     public void getSelected(){
@@ -131,11 +151,14 @@ public class HomeController implements Initializable {
         System.out.println(genre);
         System.out.println(checkOut);
         System.out.println(checkIn);
+<<<<<<< HEAD
     }
 
     public void setName(String userName){
         this.userName = userName;
         name.setText(userName);
+=======
+>>>>>>> 4d3334ebe1bed2c25cc1764984840f2396358ef8
     }
 
     @Override
