@@ -15,9 +15,6 @@ public class ConnectDB {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection(url, username, password);
-            //PreparedStatement ps = conn.prepareStatement("INSERT INTO userdb.users (name) VALUES ('M Saim');");
-            //int status = ps.executeUpdate();
-            //if(status!=0){System.out.println("Successful!");}
             return conn;
         } catch (ClassNotFoundException e) {
             System.err.println(e.getMessage());

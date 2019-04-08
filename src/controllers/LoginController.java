@@ -39,8 +39,8 @@ public class LoginController implements Initializable {
     Connection conn = null;
     PreparedStatement check = null;
     PreparedStatement insert = null;
+    PreparedStatement insertTable = null;
     ResultSet resultSet = null;
-    ResultSet resultSet2 = null;
 
     public void handleButtonAction(MouseEvent event){
         if(event.getSource()==userSignin){
@@ -58,15 +58,6 @@ public class LoginController implements Initializable {
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
                     stage1.show();
-
-                   /* FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
-                    Parent root = (Parent) loader.load();
-                    HomeController homeController = loader.getController();
-                    homeController.setName(name);
-
-                    Scene scene = new Scene(FXMLLoader.load((getClass().getResource("/views/Home.fxml"))));
-                    stage.setScene(scene);
-                    stage.show();*/
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
                 }
@@ -74,19 +65,20 @@ public class LoginController implements Initializable {
         }
 
         if(event.getSource()==userRegister){
-            if(register().equals("Success")){
+            if(createAccount().equals("Success")){
                 try{
                     Node node = (Node) event.getSource();
                     Stage stage = (Stage) node.getScene().getWindow();
                     stage.close();
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
-                    Parent root = (Parent)loader.load();
+                    Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
                     homeController.setName(name);
-                    Scene scene = new Scene(FXMLLoader.load((getClass().getResource("/views/Home.fxml"))));
-                    stage.setScene(scene);
-                    stage.show();
+
+                    Stage stage1 = new Stage();
+                    stage1.setScene(new Scene(root));
+                    stage1.show();
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
                 }
@@ -129,13 +121,22 @@ public class LoginController implements Initializable {
         }
     }
 
-    private String register(){
+    private String createAccount(){
         String email = userUsername.getText().toString();
         String password = userPassword.getText().toString();
         this.name = email;
 
-        String checkSql = "SELECT * FROM userdb.users WHERE email=? and password=?";
+        String checkSql = "SELECT * FROM userdb.users WHERE email=? OR password=?";
         String registerSql = "INSERT INTO userdb.users (email, password) VALUES (?,?)";
+        String createTableSql = "CREATE TABLE userdb."+email+ "" +
+                                "( `isbn` INT NOT NULL," +
+                                " `title` VARCHAR(45) NULL," +
+                                " `author` VARCHAR(45) NULL," +
+                                " `genre` VARCHAR(45) NULL," +
+                                " `checkOut` VARCHAR(45) NULL," +
+                                " `checkIn` VARCHAR(45) NULL," +
+                                " PRIMARY KEY (`isbn`))";
+
         try {
             check = conn.prepareStatement(checkSql);
             check.setString(1,email);
@@ -146,10 +147,15 @@ public class LoginController implements Initializable {
                 userLoginError.setTextFill(Color.GREEN);
                 userLoginError.setText("Success");
                 System.err.println("Insert:Success");
+
                 insert = conn.prepareStatement(registerSql);
                 insert.setString(1,email);
                 insert.setString(2, password);
                 insert.executeUpdate();
+
+                insertTable = conn.prepareStatement(createTableSql);
+                insertTable.executeUpdate();
+
                 return "Success";
             }else{
                 userLoginError.setTextFill(Color.RED);
