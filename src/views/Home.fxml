@@ -144,13 +144,8 @@
             </TableView>
          </children>
       </AnchorPane>
-<<<<<<< HEAD
       <Button fx:id="addBookButton" layoutX="922.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#addBook" style="-fx-background-color: #35DD33;" text="Checkout" textFill="WHITE" />
       <Label fx:id="additionLabel" layoutX="249.0" layoutY="552.0" prefHeight="17.0" prefWidth="623.0" textAlignment="CENTER" textFill="GREEN" />
       <Button fx:id="returnBookButton" layoutX="1005.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#returnBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32;" text="Return" textFill="WHITE" />
-=======
-      <Button fx:id="addBookButton" layoutX="972.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#addBook" style="-fx-background-color: #35DD33;" text="Checkout" textFill="WHITE" />
-      <Label fx:id="additionLabel" layoutX="777.0" layoutY="552.0" prefHeight="17.0" prefWidth="184.0" textFill="GREEN" />
->>>>>>> 4d3334ebe1bed2c25cc1764984840f2396358ef8
    </children>
 </AnchorPane>
