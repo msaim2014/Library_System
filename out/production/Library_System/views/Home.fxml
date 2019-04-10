@@ -10,10 +10,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="1156.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="206.0" style="-fx-background-color: #EBE8F9;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,7 +31,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="203.0" stylesheets="@Style.css" text="Overview">
+            <Button fx:id="overViewButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onMouseClicked="#changePanel" prefHeight="35.0" prefWidth="203.0" stylesheets="@Style.css" text="Overview">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -51,7 +53,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="203.0" stylesheets="@Style.css" text="My Account">
+            <Button fx:id="myAccountButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onMouseClicked="#changePanel" prefHeight="35.0" prefWidth="203.0" stylesheets="@Style.css" text="My Account">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,7 +64,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="210.0" stylesheets="@Style.css" text="Manage Books">
+            <Button fx:id="manageBooksButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onMouseClicked="#changePanel" prefHeight="35.0" prefWidth="210.0" stylesheets="@Style.css" text="Manage Books">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -86,66 +88,223 @@
             </Button>
          </children>
       </VBox>
-      <Label layoutX="252.0" layoutY="48.0" text="Library System">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <HBox alignment="CENTER" layoutX="248.0" layoutY="93.0" prefHeight="58.0" prefWidth="830.0" spacing="40.0">
+      <AnchorPane layoutX="199.0" prefHeight="587.0" prefWidth="950.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <Pane fx:id="myAccountPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
-                  <Label text="5" textFill="BLUE">
+                  <Label layoutX="38.0" layoutY="53.0" text="My Account">
                      <font>
-                        <Font name="System Italic" size="24.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Checked Out" />
                </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            </Pane>
+            <Pane fx:id="overViewPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
-                  <Label text="04/24/19" textFill="GREEN">
+                  <Label layoutX="23.0" layoutY="48.0" text="Library System">
                      <font>
-                        <Font name="System Italic" size="24.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Next Due Date" />
+                  <HBox alignment="CENTER" layoutX="14.0" layoutY="102.0" prefHeight="58.0" prefWidth="830.0" spacing="40.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="5" textFill="BLUE">
+                                 <font>
+                                    <Font name="System Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Checked Out" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="04/24/19" textFill="GREEN">
+                                 <font>
+                                    <Font name="System Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Next Due Date" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="2" textFill="RED">
+                                 <font>
+                                    <Font name="System Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Books Reserved" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="807.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/search.png" />
+                     </image>
+                  </ImageView>
+                  <TextField layoutX="646.0" layoutY="23.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+                  <AnchorPane layoutX="14.0" layoutY="175.0" prefHeight="351.0" prefWidth="830.0">
+                     <children>
+                        <TableView fx:id="table" layoutX="119.0" layoutY="-52.0" onMouseClicked="#getSelected" prefHeight="352.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="col_isbn" prefWidth="75.0" text="ISBN" />
+                              <TableColumn fx:id="col_title" prefWidth="200.0" text="Title" />
+                              <TableColumn fx:id="col_author" prefWidth="200.0" text="Author" />
+                              <TableColumn fx:id="col_genre" prefWidth="200.0" text="Genre" />
+                              <TableColumn fx:id="col_numAvailable" prefWidth="154.0" text="Number Available" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="checkOutButton" layoutX="679.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#checkOutBook" style="-fx-background-color: #35DD33;" text="Checkout" textFill="WHITE" />
+                  <Label fx:id="additionLabel" layoutX="23.0" layoutY="544.0" prefHeight="17.0" prefWidth="623.0" textAlignment="CENTER" textFill="GREEN" />
+                  <Button fx:id="returnButton" layoutX="764.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#returnBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32;" text="Return" textFill="WHITE" />
                </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            </Pane>
+            <Pane fx:id="manageBooksPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
-                  <Label text="2" textFill="RED">
+                  <Label layoutX="41.0" layoutY="50.0" text="Manage Books">
                      <font>
-                        <Font name="System Italic" size="24.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Books Reserved" />
+                  <AnchorPane layoutX="93.0" layoutY="118.0" prefHeight="100.0" prefWidth="830.0">
+                     <children>
+                        <HBox layoutX="7.0" prefHeight="100.0" prefWidth="830.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="64.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="addISBN" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="286.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="addTitle" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="234.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Author">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="addAuthor" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Genre">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="addGenre" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="69.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Copies">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="addNumAvailable" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="24.0" layoutY="342.0" prefHeight="231.0" prefWidth="887.0">
+                     <children>
+                        <TableView fx:id="manageTable" layoutX="119.0" layoutY="-52.0" onMouseClicked="#getSelected" prefHeight="352.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="col_isbn1" prefWidth="75.0" text="ISBN" />
+                              <TableColumn fx:id="col_title1" prefWidth="242.0" text="Title" />
+                              <TableColumn fx:id="col_author1" prefWidth="195.0" text="Author" />
+                              <TableColumn fx:id="col_genre1" prefWidth="163.0" text="Genre" />
+                              <TableColumn fx:id="col_numAvailable1" prefWidth="211.0" text="Number Available" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="99.0" layoutY="219.0" prefHeight="100.0" prefWidth="69.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="64.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="removeISBN" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <Text layoutX="35.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="35.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="addBookButton" layoutX="752.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#addBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #35DD33;" text="Add" textFill="WHITE" />
+                  <Button fx:id="removeBookButton" layoutX="845.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#removeBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32;" text="Remove" textFill="WHITE" />
+                  <Label fx:id="bookStatus" alignment="CENTER_RIGHT" layoutX="490.0" layoutY="256.0" prefHeight="25.0" prefWidth="245.0" textAlignment="RIGHT" />
                </children>
-            </VBox>
-         </children>
-      </HBox>
-      <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="1055.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/search.png" />
-         </image>
-      </ImageView>
-      <TextField layoutX="897.0" layoutY="13.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
-      <AnchorPane layoutX="248.0" layoutY="172.0" prefHeight="351.0" prefWidth="830.0">
-         <children>
-            <TableView fx:id="table" layoutX="119.0" layoutY="-52.0" onMouseClicked="#getSelected" prefHeight="352.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columns>
-                <TableColumn fx:id="col_isbn" prefWidth="75.0" text="ISBN" />
-                <TableColumn fx:id="col_title" prefWidth="200.0" text="Title" />
-                  <TableColumn fx:id="col_author" prefWidth="200.0" text="Author" />
-                  <TableColumn fx:id="col_genre" prefWidth="200.0" text="Genre" />
-                  <TableColumn fx:id="col_numAvailable" prefWidth="154.0" text="Number Available" />
-              </columns>
-            </TableView>
+            </Pane>
          </children>
       </AnchorPane>
-      <Button fx:id="addBookButton" layoutX="922.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#addBook" style="-fx-background-color: #35DD33;" text="Checkout" textFill="WHITE" />
-      <Label fx:id="additionLabel" layoutX="249.0" layoutY="552.0" prefHeight="17.0" prefWidth="623.0" textAlignment="CENTER" textFill="GREEN" />
-      <Button fx:id="returnBookButton" layoutX="1005.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#returnBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32;" text="Return" textFill="WHITE" />
    </children>
 </AnchorPane>

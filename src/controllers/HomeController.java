@@ -8,11 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -32,11 +32,17 @@ import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
     @FXML private VBox prItems = null;
-    @FXML private Label name;
-    @FXML private Button addBookButton;
-    @FXML private Button returnBookButton;
-    @FXML private Label additionLabel;
 
+    //overview
+    @FXML private Label name;
+    @FXML private Button checkOutButton;
+    @FXML private Button returnButton;
+    @FXML private Label additionLabel;
+    @FXML private Button overViewButton;
+    @FXML private Button myAccountButton;
+    @FXML private Button manageBooksButton;
+    @FXML private Pane overViewPane;
+    @FXML private Pane myAccountPane;
     @FXML private TableView<ModelTable> table;
     @FXML private TableColumn<ModelTable, Integer> col_isbn;
     @FXML private TableColumn<ModelTable, String> col_title;
@@ -44,13 +50,29 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<ModelTable, String> col_genre;
     @FXML private TableColumn<ModelTable, Integer> col_numAvailable;
 
+    //admin manage books
+    @FXML private Pane manageBooksPane;
+    @FXML private TextField addISBN;
+    @FXML private TextField addTitle;
+    @FXML private TextField addAuthor;
+    @FXML private TextField addGenre;
+    @FXML private TextField addNumAvailable;
+    @FXML private TextField removeISBN;
+    @FXML private TableView<ModelTable> manageTable;
+    @FXML private TableColumn<ModelTable, Integer> col_isbn1;
+    @FXML private TableColumn<ModelTable, String> col_title1;
+    @FXML private TableColumn<ModelTable, String> col_author1;
+    @FXML private TableColumn<ModelTable, String> col_genre1;
+    @FXML private TableColumn<ModelTable, Integer> col_numAvailable1;
+    @FXML private Button addBookButton;
+    @FXML private Button removeBookButton;
+    @FXML private Label bookStatus;
+
     private String userName;
     private Book book;
     Connection conn = null;
     ObservableList<ModelTable> observableList = FXCollections.observableArrayList();
-    PreparedStatement addBook = null;
-    PreparedStatement returnBook = null;
-    PreparedStatement checkBook = null;
+    PreparedStatement statement = null;
     ResultSet res = null;
 
     private String isbn;
@@ -59,22 +81,110 @@ public class HomeController implements Initializable {
     private String genre;
     private String checkOut;
     private String checkIn;
+    private String numAvailable;
 
     public HomeController(){
         conn = ConnectDB.conDB();
     }
 
     public void addBook(){
+        this.isbn = addISBN.getText();
+        this.title = addTitle.getText();
+        this.author = addAuthor.getText();
+        this.genre = addGenre.getText();
+        this.numAvailable = addNumAvailable.getText();
+
+        String addBookSql = "Insert INTO userdb.books (isbn, title, author, genre, numAvailable) VALUES (?,?,?,?,?)";
+        try {
+            statement = conn.prepareStatement(addBookSql);
+            statement.setString(1, isbn);
+            statement.setString(2, title);
+            statement.setString(3, author);
+            statement.setString(4, genre);
+            statement.setString(5, numAvailable);
+            statement.executeUpdate();
+
+            bookStatus.setText(title + " Added");
+            bookStatus.setTextFill(Color.GREEN);
+            updateBookAvailability();
+
+        } catch (SQLException e) {
+            bookStatus.setText("Missing Fields or Duplicate ISBN");
+            bookStatus.setTextFill(Color.RED);
+        }
+        //manageTable.getItems().add(new ModelTable(isbn, title, author, genre, numAvailable));
+        refreshTables();
+    }
+
+    public void removeBook(){
+        this.isbn = removeISBN.getText();
+        String removeBookSql = "DELETE FROM userdb.books WHERE isbn = " + isbn;
+        try {
+            statement = conn.prepareStatement(removeBookSql);
+            int n = statement.executeUpdate();
+            if(n==1){
+                bookStatus.setText("Removed: " + isbn);
+                bookStatus.setTextFill(Color.GREEN);
+            }else{
+                bookStatus.setText("Incorrect ISBN");
+                bookStatus.setTextFill(Color.RED);
+            }
+        } catch (SQLException e) {
+            bookStatus.setText("Incorrect ISBN");
+            bookStatus.setTextFill(Color.RED);
+        }
+        refreshTables();
+    }
+
+    public void refreshTables(){
+        String getBooksSql = "SELECT * FROM userdb.books";
+        observableList.clear();
+        try {
+            ResultSet rs = conn.createStatement().executeQuery(getBooksSql);
+            while(rs.next()){
+                observableList.add(new ModelTable(
+                        rs.getString("isbn"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("genre"),
+                        rs.getString("numAvailable")));
+
+                col_isbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+                col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
+                col_author.setCellValueFactory(new PropertyValueFactory<>("author"));
+                col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+                col_numAvailable.setCellValueFactory(new PropertyValueFactory<>("numAvailable"));
+
+                col_isbn1.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+                col_title1.setCellValueFactory(new PropertyValueFactory<>("title"));
+                col_author1.setCellValueFactory(new PropertyValueFactory<>("author"));
+                col_genre1.setCellValueFactory(new PropertyValueFactory<>("genre"));
+                col_numAvailable1.setCellValueFactory(new PropertyValueFactory<>("numAvailable"));
+
+
+                //calls all the getters and setters in ModelTable
+                table.setItems(observableList);
+                manageTable.setItems(observableList);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (IllegalStateException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+
+    public void checkOutBook(){
         String addBookSql = "Insert INTO userdb." + userName + "(isbn, title, author, genre, checkOut, checkIn) VALUES (?,?,?,?,?,?)";
         try {
-            addBook = conn.prepareStatement(addBookSql);
-            addBook.setString(1, isbn);
-            addBook.setString(2, title);
-            addBook.setString(3, author);
-            addBook.setString(4, genre);
-            addBook.setString(5, checkOut);
-            addBook.setString(6, checkIn);
-            int num = addBook.executeUpdate();
+            statement = conn.prepareStatement(addBookSql);
+            statement.setString(1, isbn);
+            statement.setString(2, title);
+            statement.setString(3, author);
+            statement.setString(4, genre);
+            statement.setString(5, checkOut);
+            statement.setString(6, checkIn);
+            statement.executeUpdate();
 
             additionLabel.setText("Checked Out: " + title);
             additionLabel.setTextFill(Color.GREEN);
@@ -89,8 +199,8 @@ public class HomeController implements Initializable {
     public void returnBook(){
         String returnBookSql = "DELETE FROM userdb." +userName+ " WHERE title='" +title+"'";
         try {
-            returnBook = conn.prepareStatement(returnBookSql);
-            returnBook.executeUpdate();
+            statement = conn.prepareStatement(returnBookSql);
+            statement.executeUpdate();
             additionLabel.setText("Returned: " + title);
             additionLabel.setTextFill(Color.GREEN);
         } catch (SQLException e) {
@@ -102,8 +212,13 @@ public class HomeController implements Initializable {
     public boolean hasBook(){return true;}
     public void updateBookAvailability(){ }
 
-    public void getSelected(){
-        ModelTable res = table.getSelectionModel().getSelectedItem();
+    public void getSelected(MouseEvent event){
+        ModelTable res = null;
+        if(event.getSource()==table){
+            res = table.getSelectionModel().getSelectedItem();
+        }else if(event.getSource()==manageTable){
+            res = manageTable.getSelectionModel().getSelectedItem();
+        }
 
         //not working
         //book.setIsbn(res.getIsbn());
@@ -138,8 +253,19 @@ public class HomeController implements Initializable {
         name.setText(userName);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void changePanel(MouseEvent event){
+        if(event.getSource()==overViewButton){
+            overViewPane.toFront();
+        }
+        if(event.getSource()==myAccountButton){
+            myAccountPane.toFront();
+        }
+        if(event.getSource()==manageBooksButton){
+            manageBooksPane.toFront();
+        }
+    }
+
+    public void createTables(){
         String getBooksSql = "SELECT * FROM userdb.books";
         try {
             ResultSet rs = conn.createStatement().executeQuery(getBooksSql);
@@ -157,13 +283,27 @@ public class HomeController implements Initializable {
                 col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
                 col_numAvailable.setCellValueFactory(new PropertyValueFactory<>("numAvailable"));
 
+                col_isbn1.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+                col_title1.setCellValueFactory(new PropertyValueFactory<>("title"));
+                col_author1.setCellValueFactory(new PropertyValueFactory<>("author"));
+                col_genre1.setCellValueFactory(new PropertyValueFactory<>("genre"));
+                col_numAvailable1.setCellValueFactory(new PropertyValueFactory<>("numAvailable"));
+
+
                 //calls all the getters and setters in ModelTable
                 table.setItems(observableList);
+                manageTable.setItems(observableList);
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } catch (IllegalStateException e){
             System.err.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        overViewPane.toFront();
+        createTables();
     }
 }
