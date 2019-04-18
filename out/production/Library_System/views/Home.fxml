@@ -154,7 +154,7 @@
                               <TableColumn fx:id="col_title" prefWidth="200.0" text="Title" />
                               <TableColumn fx:id="col_author" prefWidth="200.0" text="Author" />
                               <TableColumn fx:id="col_genre" prefWidth="200.0" text="Genre" />
-                              <TableColumn fx:id="col_numAvailable" prefWidth="154.0" text="Number Available" />
+                              <TableColumn fx:id="col_availability" prefWidth="154.0" text="Number Available" />
                            </columns>
                         </TableView>
                      </children>
@@ -246,7 +246,7 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Text>
-                                    <TextField fx:id="addNumAvailable" />
+                                    <TextField fx:id="addAvailability" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -267,7 +267,7 @@
                               <TableColumn fx:id="col_title1" prefWidth="242.0" text="Title" />
                               <TableColumn fx:id="col_author1" prefWidth="195.0" text="Author" />
                               <TableColumn fx:id="col_genre1" prefWidth="163.0" text="Genre" />
-                              <TableColumn fx:id="col_numAvailable1" prefWidth="211.0" text="Number Available" />
+                              <TableColumn fx:id="col_availability1" prefWidth="211.0" text="Number Available" />
                            </columns>
                         </TableView>
                      </children>

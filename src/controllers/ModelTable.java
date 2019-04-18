@@ -1,7 +1,7 @@
 package controllers;
 
 public class ModelTable {
-    String title, author, genre, isbn, numAvailable;
+    String title, author, genre, isbn, availability;
 
     public String getTitle() {
         return title;
@@ -35,12 +35,12 @@ public class ModelTable {
         this.isbn = isbn;
     }
 
-    public String getNumAvailable() {
-        return numAvailable;
+    public String getAvailability() {
+        return availability;
     }
 
-    public void setNumAvailable(String numAvailable) {
-        this.numAvailable = numAvailable;
+    public void setAvailability(String numAvailable) {
+        this.availability = numAvailable;
     }
 
     public ModelTable(String isbn, String title, String author, String genre, String numAvailable){
@@ -48,7 +48,7 @@ public class ModelTable {
         this.title = title;
         this.author = author;
         this.genre = genre;
-        this.numAvailable = numAvailable;
+        this.availability = numAvailable;
     }
 
 }

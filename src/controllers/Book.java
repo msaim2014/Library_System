@@ -5,34 +5,14 @@ public class Book {
     private String title;
     private String author;
     private String genre;
-    private String numAvailable;
-    private String checkOut;
-    private String checkIn;
+    private String availability;
 
-    public Book(String isbn, String title, String author, String genre, String numAvailable, String checkOut, String checkIn) {
+    public Book(String isbn, String title, String author, String genre, String availability) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.genre = genre;
-        this.numAvailable = numAvailable;
-        this.checkOut = checkOut;
-        this.checkIn = checkIn;
-    }
-
-    public String getCheckOut() {
-        return checkOut;
-    }
-
-    public void setCheckOut(String checkOut) {
-        this.checkOut = checkOut;
-    }
-
-    public String getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(String checkIn) {
-        this.checkIn = checkIn;
+        this.availability = availability;
     }
 
     public String getIsbn() {
@@ -67,11 +47,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public String getNumAvailable() {
-        return numAvailable;
+    public String getAvailability() {
+        return availability;
     }
 
-    public void setNumAvailable(String numberAvailable) {
-        this.numAvailable = numberAvailable;
+    public void setAvailability(String numberAvailable) {
+        this.availability = numberAvailable;
     }
 }
