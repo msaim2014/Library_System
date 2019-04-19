@@ -10,11 +10,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-<<<<<<< HEAD
-=======
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
->>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
 import utils.ConnectDB;
 import java.net.URL;
 import java.sql.Connection;
@@ -75,11 +72,8 @@ public class HomeController implements Initializable {
     @FXML private Label bookStatus;
 
     private String userName;
-<<<<<<< HEAD
     private String userID;
-=======
     private String userPass;
->>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
     private Book book;
     Connection conn = null;
     ObservableList<ModelTable> observableList = FXCollections.observableArrayList();

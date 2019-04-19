@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-<<<<<<< HEAD
+
     @FXML
     private TextField userUsername;
     @FXML
@@ -42,13 +42,7 @@ public class LoginController implements Initializable {
     private Button adminRegister;
     @FXML
     private Label userLoginError;
-=======
-    @FXML private TextField userUsername;
-    @FXML private TextField userPassword;
-    @FXML private Button userSignin;
-    @FXML private Button userRegister;
-    @FXML private Label userLoginError;
->>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
+
 
     private String name;
     private String password;
@@ -70,7 +64,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    homeController.setName(name);
+                    //homeController.setName(name);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -112,7 +106,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    homeController.setName(name);
+                    //homeController.setName(name);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -153,12 +147,8 @@ public class LoginController implements Initializable {
     private String userLogin(){
         String username = userUsername.getText().toString();
         String password = userPassword.getText().toString();
-<<<<<<< HEAD
         this.name = username;
-=======
-        this.name = email;
         this.password = password;
->>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
 
         String checkSql = "SELECT * FROM users WHERE username=? and password=?";
         try {
@@ -218,12 +208,8 @@ public class LoginController implements Initializable {
     private String userRegister(){
         String username = userUsername.getText().toString();
         String password = userPassword.getText().toString();
-<<<<<<< HEAD
         this.name = username;
-=======
-        this.name = email;
         this.password = password;
->>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
 
         String checkSql = "SELECT * FROM users WHERE username=?";
         String registerSql = "INSERT INTO users (username, password) VALUES (?,?)";
