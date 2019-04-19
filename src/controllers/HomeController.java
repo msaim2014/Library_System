@@ -100,12 +100,9 @@ public class HomeController implements Initializable {
             accountChangeStatus.setTextFill(Color.RED);
         }else{
             //name is the new username and userName is the old one
-            String changeUserSql = "UPDATE userdb.users SET email='"+name+"', password='"+pass+ "' WHERE email='"+userName+"'";
-            String changeTableSql = "RENAME TABLE userdb." + userName +" TO userdb." + name;
+            String changeUserSql = "UPDATE users SET username='"+name+"', password='"+pass+ "' WHERE user_id='"+userID+"'";
             try {
                 statement=conn.prepareStatement(changeUserSql);
-                statement.executeUpdate();
-                statement=conn.prepareStatement(changeTableSql);
                 statement.executeUpdate();
                 accountChangeStatus.setText("Success!");
                 accountChangeStatus.setTextFill(Color.GREEN);

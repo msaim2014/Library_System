@@ -64,7 +64,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    //homeController.setName(name);
+                    homeController.setUserInfo(name, password);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -106,7 +106,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    //homeController.setName(name);
+                    homeController.setUserInfo(name, password);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
