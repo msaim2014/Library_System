@@ -3,29 +3,20 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import utils.ConnectDB;
-
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -174,13 +165,16 @@ public class HomeController implements Initializable {
         }
     }
 
-
     public void checkOutBook(){
-        String addBookSql = "Insert INTO checkout (checkout_id, user_id, ISBN) VALUES (DEFAULT,?,?)";
+        String addBookSql = "Insert INTO checkout (checkout_id, user_id, ISBN, checkout_date, return_date) VALUES (DEFAULT,?,?,?,?)";
+        Date today = new Date();
+        Date returnBook = new Date(+21);
         try {
             statement = conn.prepareStatement(addBookSql);
             statement.setString(2, userID);
             statement.setString(3, isbn);
+            statement.setDate(4, (java.sql.Date) today);
+            statement.setDate(5, (java.sql.Date) returnBook);
             statement.executeUpdate();
 
             additionLabel.setText("Checked Out: " + title);
@@ -194,7 +188,7 @@ public class HomeController implements Initializable {
     }
 
     public void returnBook(){
-        String returnBookSql = "DELETE FROM checkout WHERE ISBN = '" +isbn+"'";
+        String returnBookSql = "DELETE FROM checkout WHERE ISBN = " + isbn + "AND user_id = " + userID;
         try {
             statement = conn.prepareStatement(returnBookSql);
             statement.executeUpdate();
@@ -208,7 +202,7 @@ public class HomeController implements Initializable {
 
     public boolean hasBook(){return true;}
     public void updateBookAvailability(String value) {
-    	String getAvailability = "SELECT availability FROM books WHERE ISBN  '" +isbn+"'";
+    	String getAvailability = "SELECT availability FROM books WHERE ISBN = " + isbn;
     	int avail = 0;
         try {
         	ResultSet rs = conn.createStatement().executeQuery(getAvailability);
@@ -223,7 +217,7 @@ public class HomeController implements Initializable {
         
         if(value == "increase") {
         	avail++;
-        	String updateAvailability = "UPDATE books SET availability = ?";
+        	String updateAvailability = "UPDATE books SET availability = ? WHERE ISBN = " + isbn;
         	try {
                 statement = conn.prepareStatement(updateAvailability);
                 statement.setInt(1, avail);
@@ -234,7 +228,7 @@ public class HomeController implements Initializable {
             }
         } else {
         	avail--;
-        	String updateAvailability = "UPDATE books SET availability = ?";
+        	String updateAvailability = "UPDATE books SET availability = ? WHERE ISBN = " + isbn;
         	try {
                 statement = conn.prepareStatement(updateAvailability);
                 statement.setInt(1, avail);
