@@ -90,6 +90,7 @@
       </VBox>
       <AnchorPane layoutX="199.0" prefHeight="587.0" prefWidth="950.0">
          <children>
+<<<<<<< HEAD
             <Pane fx:id="myAccountPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="38.0" layoutY="53.0" text="My Account">
@@ -99,6 +100,8 @@
                   </Label>
                </children>
             </Pane>
+=======
+>>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
             <Pane fx:id="manageBooksPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="41.0" layoutY="50.0" text="Manage Books">
@@ -234,13 +237,14 @@
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Button fx:id="addBookButton" layoutX="752.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#addBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #35DD33;" text="Add" textFill="WHITE" />
-                  <Button fx:id="removeBookButton" layoutX="845.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#removeBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32;" text="Remove" textFill="WHITE" />
+                  <Button fx:id="addBookButton" layoutX="752.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#addBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #35DD33; -fx-background-radius: 20;" text="Add" textFill="WHITE" />
+                  <Button fx:id="removeBookButton" layoutX="845.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#removeBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32; -fx-background-radius: 20;" text="Remove" textFill="WHITE" />
                   <Label fx:id="bookStatus" alignment="CENTER_RIGHT" layoutX="490.0" layoutY="256.0" prefHeight="25.0" prefWidth="245.0" textAlignment="RIGHT" />
                </children>
             </Pane>
             <Pane fx:id="overViewPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
+<<<<<<< HEAD
                   <HBox alignment="CENTER" layoutX="14.0" layoutY="102.0" prefHeight="58.0" prefWidth="830.0" spacing="40.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -290,6 +294,136 @@
                   <Label layoutX="23.0" layoutY="48.0" text="Library System">
                      <font>
                         <Font size="24.0" />
+=======
+                  <Label layoutX="23.0" layoutY="48.0" text="Library System">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" layoutX="14.0" layoutY="102.0" prefHeight="58.0" prefWidth="830.0" spacing="40.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="5" textFill="BLUE">
+                                 <font>
+                                    <Font name="System Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Checked Out" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="04/24/19" textFill="GREEN">
+                                 <font>
+                                    <Font name="System Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Next Due Date" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="2" textFill="RED">
+                                 <font>
+                                    <Font name="System Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Books Reserved" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="807.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/search.png" />
+                     </image>
+                  </ImageView>
+                  <TextField layoutX="646.0" layoutY="23.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" />
+                  <AnchorPane layoutX="14.0" layoutY="175.0" prefHeight="351.0" prefWidth="830.0">
+                     <children>
+                        <TableView fx:id="table" layoutX="119.0" layoutY="-52.0" onMouseClicked="#getSelected" prefHeight="352.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="col_isbn" prefWidth="75.0" text="ISBN" />
+                              <TableColumn fx:id="col_title" prefWidth="200.0" text="Title" />
+                              <TableColumn fx:id="col_author" prefWidth="200.0" text="Author" />
+                              <TableColumn fx:id="col_genre" prefWidth="200.0" text="Genre" />
+                              <TableColumn fx:id="col_numAvailable" prefWidth="154.0" text="Number Available" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="checkOutButton" layoutX="679.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#checkOutBook" style="-fx-background-color: #35DD33; -fx-background-radius: 20;" text="Checkout" textFill="WHITE" />
+                  <Label fx:id="additionLabel" layoutX="23.0" layoutY="544.0" prefHeight="17.0" prefWidth="623.0" textAlignment="CENTER" textFill="GREEN" />
+                  <Button fx:id="returnButton" layoutX="764.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#returnBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32; -fx-background-radius: 20;" text="Return" textFill="WHITE" />
+               </children>
+            </Pane>
+            <Pane fx:id="myAccountPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="38.0" layoutY="53.0" text="My Account">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="38.0" layoutY="115.0" prefHeight="200.0" prefWidth="363.0">
+                     <children>
+                        <HBox prefHeight="37.0" prefWidth="396.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Name:">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="myAccountUsername" strokeType="OUTSIDE" strokeWidth="0.0" text="userName">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="textUsername" alignment="CENTER_RIGHT">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="37.0" prefWidth="396.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:   ">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="myAccountPassword" strokeType="OUTSIDE" strokeWidth="0.0" text="password">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="textPassword" alignment="CENTER_RIGHT">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button fx:id="editButton" layoutX="836.0" layoutY="530.0" mnemonicParsing="false" onMouseClicked="#editAccount" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #35DD33; -fx-background-radius: 20;" text="Save" textFill="WHITE" />
+                  <Label fx:id="accountChangeStatus" contentDisplay="RIGHT" layoutX="313.0" layoutY="534.0" prefHeight="20.0" prefWidth="507.0">
+                     <font>
+                        <Font name="SansSerif Regular" size="16.0" />
+>>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
                      </font>
                   </Label>
                </children>
