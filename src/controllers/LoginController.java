@@ -23,18 +23,14 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    @FXML
-    private TextField userUsername;
-    @FXML
-    private TextField userPassword;
-    @FXML
-    private Button userSignin;
-    @FXML
-    private Button userRegister;
-    @FXML
-    private Label userLoginError;
+    @FXML private TextField userUsername;
+    @FXML private TextField userPassword;
+    @FXML private Button userSignin;
+    @FXML private Button userRegister;
+    @FXML private Label userLoginError;
 
     private String name;
+    private String password;
 
     Connection conn = null;
     PreparedStatement check = null;
@@ -53,7 +49,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    homeController.setName(name);
+                    homeController.setUserInfo(name, password);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -74,7 +70,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    homeController.setName(name);
+                    homeController.setUserInfo(name,password);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -95,6 +91,7 @@ public class LoginController implements Initializable {
         String email = userUsername.getText().toString();
         String password = userPassword.getText().toString();
         this.name = email;
+        this.password = password;
 
         String checkSql = "SELECT * FROM userdb.users WHERE email=? and password=?";
         try {
@@ -125,6 +122,7 @@ public class LoginController implements Initializable {
         String email = userUsername.getText().toString();
         String password = userPassword.getText().toString();
         this.name = email;
+        this.password = password;
 
         String checkSql = "SELECT * FROM userdb.users WHERE email=? OR password=?";
         String registerSql = "INSERT INTO userdb.users (email, password) VALUES (?,?)";

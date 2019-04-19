@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utils.ConnectDB;
 
@@ -32,6 +33,14 @@ import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
     @FXML private VBox prItems = null;
+
+    //My Account
+    @FXML private Button editButton;
+    @FXML private Text myAccountUsername;
+    @FXML private Text myAccountPassword;
+    @FXML private TextField textUsername;
+    @FXML private TextField textPassword;
+    @FXML private Label accountChangeStatus;
 
     //overview
     @FXML private Label name;
@@ -69,6 +78,7 @@ public class HomeController implements Initializable {
     @FXML private Label bookStatus;
 
     private String userName;
+    private String userPass;
     private Book book;
     Connection conn = null;
     ObservableList<ModelTable> observableList = FXCollections.observableArrayList();
@@ -85,6 +95,37 @@ public class HomeController implements Initializable {
 
     public HomeController(){
         conn = ConnectDB.conDB();
+    }
+
+    public void editAccount(){
+        String name = textUsername.getText();
+        String pass = textPassword.getText();
+        if("".equals(name) || "".equals(pass)){
+            accountChangeStatus.setText("Please Enter name and password");
+            accountChangeStatus.setTextFill(Color.RED);
+        }else{
+            //name is the new username and userName is the old one
+            String changeUserSql = "UPDATE userdb.users SET email='"+name+"', password='"+pass+ "' WHERE email='"+userName+"'";
+            String changeTableSql = "RENAME TABLE userdb." + userName +" TO userdb." + name;
+            try {
+                statement=conn.prepareStatement(changeUserSql);
+                statement.executeUpdate();
+                statement=conn.prepareStatement(changeTableSql);
+                statement.executeUpdate();
+                accountChangeStatus.setText("Success!");
+                accountChangeStatus.setTextFill(Color.GREEN);
+                this.userName = name;
+                this.userPass = pass;
+                myAccountUsername.setText(userName);
+                myAccountPassword.setText(userPass);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                accountChangeStatus.setText("Opps... password/username taken");
+                accountChangeStatus.setTextFill(Color.RED);
+            }
+
+        }
+
     }
 
     public void addBook(){
@@ -248,9 +289,12 @@ public class HomeController implements Initializable {
         System.out.println(checkIn);
     }
 
-    public void setName(String userName){
+    public void setUserInfo(String userName, String userPass){
         this.userName = userName;
+        this.userPass = userPass;
         name.setText(userName);
+        myAccountUsername.setText(userName);
+        myAccountPassword.setText(userPass);
     }
 
     public void changePanel(MouseEvent event){
