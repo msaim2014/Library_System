@@ -90,7 +90,6 @@
       </VBox>
       <AnchorPane layoutX="199.0" prefHeight="587.0" prefWidth="950.0">
          <children>
-<<<<<<< HEAD
             <Pane fx:id="myAccountPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="38.0" layoutY="53.0" text="My Account">
@@ -100,8 +99,6 @@
                   </Label>
                </children>
             </Pane>
-=======
->>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
             <Pane fx:id="manageBooksPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="41.0" layoutY="50.0" text="Manage Books">
@@ -244,7 +241,6 @@
             </Pane>
             <Pane fx:id="overViewPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
-<<<<<<< HEAD
                   <HBox alignment="CENTER" layoutX="14.0" layoutY="102.0" prefHeight="58.0" prefWidth="830.0" spacing="40.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -294,7 +290,6 @@
                   <Label layoutX="23.0" layoutY="48.0" text="Library System">
                      <font>
                         <Font size="24.0" />
-=======
                   <Label layoutX="23.0" layoutY="48.0" text="Library System">
                      <font>
                         <Font size="24.0" />
@@ -423,7 +418,6 @@
                   <Label fx:id="accountChangeStatus" contentDisplay="RIGHT" layoutX="313.0" layoutY="534.0" prefHeight="20.0" prefWidth="507.0">
                      <font>
                         <Font name="SansSerif Regular" size="16.0" />
->>>>>>> branch 'master' of https://github.com/msaim2014/Library_System.git
                      </font>
                   </Label>
                </children>
