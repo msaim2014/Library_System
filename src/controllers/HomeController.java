@@ -34,6 +34,8 @@ public class HomeController implements Initializable {
     @FXML private Button manageBooksButton;
     @FXML private Pane overViewPane;
     @FXML private Pane myAccountPane;
+    @FXML private Label countCheckout;
+    @FXML private Label nextDueDate;
     @FXML private TableView<ModelTable> table;
     @FXML private TableColumn<ModelTable, Integer> col_isbn;
     @FXML private TableColumn<ModelTable, String> col_title;
