@@ -3,7 +3,11 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -13,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utils.ConnectDB;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,6 +39,11 @@ public class HomeController implements Initializable {
     @FXML private TextField textUsername;
     @FXML private TextField textPassword;
     @FXML private Label accountChangeStatus;
+    
+    //Search
+    @FXML private Button searchBookButton;
+    @FXML private TextField searchBookTextfield;
+    
 
     //overview
     @FXML private Label name;
@@ -42,8 +53,11 @@ public class HomeController implements Initializable {
     @FXML private Button overViewButton;
     @FXML private Button myAccountButton;
     @FXML private Button manageBooksButton;
+    @FXML private Button searchBooksButton;
+    @FXML private Button signoutButton;
     @FXML private Pane overViewPane;
     @FXML private Pane myAccountPane;
+    @FXML private Pane searchBooksPane;
     @FXML private Label countCheckout;
     @FXML private Label nextDueDate;
     @FXML private TableView<ModelTable> table;
@@ -72,7 +86,6 @@ public class HomeController implements Initializable {
     @FXML private Label bookStatus;
 
     private String userName;
-    private String userID;
     private String userPass;
     private Book book;
     Connection conn = null;
@@ -118,6 +131,10 @@ public class HomeController implements Initializable {
 
         }
 
+    }
+    
+    public void searchBookFunction() {
+    	
     }
 
     public void addBook(){
@@ -207,12 +224,12 @@ public class HomeController implements Initializable {
     }
 
     public void checkOutBook(){
-        String addBookSql = "Insert INTO checkout (checkout_id, user_id, ISBN, checkout_date, return_date) VALUES (DEFAULT,?,?,?,?)";
+        String addBookSql = "Insert INTO checkout (checkout_id, username, ISBN, checkout_date, return_date) VALUES (DEFAULT,?,?,?,?)";
         Date today = new Date();
         Date returnBook = new Date(+21);
         try {
             statement = conn.prepareStatement(addBookSql);
-            statement.setString(2, userID);
+            statement.setString(2, userName);
             statement.setString(3, isbn);
             statement.setDate(4, (java.sql.Date) today);
             statement.setDate(5, (java.sql.Date) returnBook);
@@ -229,7 +246,7 @@ public class HomeController implements Initializable {
     }
 
     public void returnBook(){
-        String returnBookSql = "DELETE FROM checkout WHERE ISBN = " + isbn + "AND user_id = " + userID;
+        String returnBookSql = "DELETE FROM checkout WHERE ISBN = " + isbn + "AND username = " + userName;
         try {
             statement = conn.prepareStatement(returnBookSql);
             statement.executeUpdate();
@@ -337,6 +354,28 @@ public class HomeController implements Initializable {
         if(event.getSource()==manageBooksButton){
             manageBooksPane.toFront();
         }
+        if(event.getSource()==searchBooksButton) {
+        	searchBooksPane.toFront();
+        }
+    }
+    
+    public void logoutFunction(MouseEvent event) {
+    	if(event.getSource()==signoutButton) {
+    		try{
+                Node node = (Node) event.getSource();
+                Stage stage = (Stage) node.getScene().getWindow();
+                stage.close();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
+                Parent root = (Parent) loader.load();
+
+                Stage stage1 = new Stage();
+                stage1.setScene(new Scene(root));
+                stage1.show();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+    	}
     }
 
     public void createTables(){

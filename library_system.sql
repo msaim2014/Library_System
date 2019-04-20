@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2019 at 02:45 PM
+-- Generation Time: Apr 20, 2019 at 11:43 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `library_system`
 --
+CREATE DATABASE IF NOT EXISTS `library_system` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `library_system`;
 
 -- --------------------------------------------------------
 
@@ -28,12 +30,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `books`
 --
 
+DROP TABLE IF EXISTS `books`;
 CREATE TABLE `books` (
   `ISBN` int(10) NOT NULL,
   `title` varchar(30) COLLATE utf8_bin NOT NULL,
   `author` varchar(30) COLLATE utf8_bin NOT NULL,
   `genre` varchar(30) COLLATE utf8_bin NOT NULL,
-  `availability` int(5) NOT NULL
+  `availability` varchar(5) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -41,7 +44,9 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`ISBN`, `title`, `author`, `genre`, `availability`) VALUES
-(123, 'test', 'test', 'test', 1);
+(111, 'this is a book', 'author', 'book', '1'),
+(123, 'test', 'test', 'test', '1'),
+(222, 'testtest', 'testtest', 'testtest', '1');
 
 -- --------------------------------------------------------
 
@@ -49,10 +54,13 @@ INSERT INTO `books` (`ISBN`, `title`, `author`, `genre`, `availability`) VALUES
 -- Table structure for table `checkout`
 --
 
+DROP TABLE IF EXISTS `checkout`;
 CREATE TABLE `checkout` (
   `checkout_id` int(10) NOT NULL,
-  `user_id` int(10) NOT NULL,
-  `ISBN` int(10) NOT NULL
+  `username` varchar(50) COLLATE utf8_bin NOT NULL,
+  `ISBN` int(10) NOT NULL,
+  `checkout_date` date NOT NULL,
+  `return_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -61,8 +69,8 @@ CREATE TABLE `checkout` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `user_id` int(10) NOT NULL,
   `username` varchar(30) COLLATE utf8_bin NOT NULL,
   `password` varchar(30) COLLATE utf8_bin NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0'
@@ -72,10 +80,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `is_admin`) VALUES
-(1, 'aaa', 'aaa', 0),
-(2, 'bbb', 'bbb', 0),
-(3, 'ccc', 'ccc', 1);
+INSERT INTO `users` (`username`, `password`, `is_admin`) VALUES
+('aaa', 'aaa', 0),
+('bbb', 'bbb', 0),
+('ccc', 'ccc', 1);
 
 --
 -- Indexes for dumped tables
@@ -97,7 +105,7 @@ ALTER TABLE `checkout`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -108,12 +116,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `checkout`
   MODIFY `checkout_id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
