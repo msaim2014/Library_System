@@ -292,7 +292,7 @@ public class HomeController implements Initializable {
     }
 
     public void returnBook(){
-        String returnBookSql = "DELETE FROM checkout WHERE ISBN = " + isbn + "AND username = " + userName;
+        String returnBookSql = "DELETE FROM checkout WHERE ISBN = '" + isbn + "'" + "AND username = '" + userName + "'";
         try {
             statement = conn.prepareStatement(returnBookSql);
             statement.executeUpdate();
