@@ -24,6 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,12 +61,20 @@ public class HomeController implements Initializable {
     @FXML private Pane searchBooksPane;
     @FXML private Label countCheckout;
     @FXML private Label nextDueDate;
+    
     @FXML private TableView<ModelTable> table;
-    @FXML private TableColumn<ModelTable, Integer> col_isbn;
+    @FXML private TableColumn<ModelTable, String> col_isbn;
     @FXML private TableColumn<ModelTable, String> col_title;
     @FXML private TableColumn<ModelTable, String> col_author;
     @FXML private TableColumn<ModelTable, String> col_genre;
-    @FXML private TableColumn<ModelTable, Integer> col_availability;
+    @FXML private TableColumn<ModelTable, String> col_availability;
+    
+    @FXML private TableView<ModelTable> tableSearch;
+    @FXML private TableColumn<ModelTable, String> col_isbn_seach;
+    @FXML private TableColumn<ModelTable, String> col_title_seach;
+    @FXML private TableColumn<ModelTable, String> col_author_seach;
+    @FXML private TableColumn<ModelTable, String> col_genre_seach;
+    @FXML private TableColumn<ModelTable, String> col_availability_seach;
 
     //admin manage books
     @FXML private Pane manageBooksPane;
@@ -134,7 +143,35 @@ public class HomeController implements Initializable {
     }
     
     public void searchBookFunction() {
-    	
+    	String bookSearched = searchBookTextfield.getText();
+    	String seachBookSQL = "SELECT * FROM books WHERE title LIKE '%" + bookSearched + "%'";
+    	observableList.clear();
+    	try {
+//    		statement = conn.prepareStatement(seachBookSQL);
+//    		statement.execute();
+    		ResultSet rs = conn.createStatement().executeQuery(seachBookSQL);
+            while(rs.next()){
+                observableList.add(new ModelTable(
+                        rs.getString("isbn"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("genre"),
+                        rs.getString("availability")));
+
+                col_isbn_seach.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+                col_title_seach.setCellValueFactory(new PropertyValueFactory<>("title"));
+                col_author_seach.setCellValueFactory(new PropertyValueFactory<>("author"));
+                col_genre_seach.setCellValueFactory(new PropertyValueFactory<>("genre"));
+                col_availability_seach.setCellValueFactory(new PropertyValueFactory<>("availability"));
+
+                //calls all the getters and setters in ModelTable
+                tableSearch.setItems(observableList);
+                manageTable.setItems(observableList);
+//                refreshTables();
+            }
+    	} catch (SQLException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
     public void addBook(){
@@ -156,7 +193,6 @@ public class HomeController implements Initializable {
 
             bookStatus.setText(title + " Added");
             bookStatus.setTextFill(Color.GREEN);
-            updateBookAvailability("increase");
 
         } catch (SQLException e) {
             bookStatus.setText("Missing Fields or Duplicate ISBN");
@@ -223,16 +259,26 @@ public class HomeController implements Initializable {
         }
     }
 
-    public void checkOutBook(){
-        String addBookSql = "Insert INTO checkout (checkout_id, username, ISBN, checkout_date, return_date) VALUES (DEFAULT,?,?,?,?)";
-        Date today = new Date();
-        Date returnBook = new Date(+21);
+    public void checkOutBook() {
+        String addBookSql = "Insert INTO checkout (username, ISBN, checkout_date, return_date) VALUES (?,?,?,?)";
+        java.sql.Date todayDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        String today = todayDate.toString();
+        String returnBook = today;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        try {
+			c.setTime(sdf.parse(returnBook));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+        c.add(Calendar.DATE, 21);
+        returnBook = sdf.format(c.getTime()); 
         try {
             statement = conn.prepareStatement(addBookSql);
-            statement.setString(2, userName);
-            statement.setString(3, isbn);
-            statement.setDate(4, (java.sql.Date) today);
-            statement.setDate(5, (java.sql.Date) returnBook);
+            statement.setString(1, userName);
+            statement.setString(2, isbn);
+            statement.setString(3, today);
+            statement.setString(4, returnBook);
             statement.executeUpdate();
 
             additionLabel.setText("Checked Out: " + title);
@@ -240,7 +286,7 @@ public class HomeController implements Initializable {
             updateBookAvailability("decrease");
 
         } catch (SQLException e) {
-            additionLabel.setText("Already Checked Out: " + title);
+            additionLabel.setText("Error code: 1 = Already Checked Out: " + title);
             additionLabel.setTextFill(Color.RED);
         }
     }
@@ -252,6 +298,7 @@ public class HomeController implements Initializable {
             statement.executeUpdate();
             additionLabel.setText("Returned: " + title);
             additionLabel.setTextFill(Color.GREEN);
+            updateBookAvailability("increase");
         } catch (SQLException e) {
             additionLabel.setText("Oops... Something went WRONG");
             additionLabel.setTextFill(Color.RED);
@@ -260,12 +307,14 @@ public class HomeController implements Initializable {
 
     public boolean hasBook(){return true;}
     public void updateBookAvailability(String value) {
-    	String getAvailability = "SELECT availability FROM books WHERE ISBN = " + isbn;
+    	String getAvailability = "SELECT availability FROM books WHERE ISBN = '" + isbn + "'";
     	int avail = 0;
+    	String availString;
         try {
         	ResultSet rs = conn.createStatement().executeQuery(getAvailability);
         	while(rs.next()) {
-        		avail = rs.getInt(availability);
+        		availString = rs.getString(availability);
+        		avail = Integer.parseInt(availString);
         	}
          
         } catch(SQLException e) {
@@ -275,10 +324,11 @@ public class HomeController implements Initializable {
         
         if(value == "increase") {
         	avail++;
-        	String updateAvailability = "UPDATE books SET availability = ? WHERE ISBN = " + isbn;
+        	availString = Integer.toString(avail);
+        	String updateAvailability = "UPDATE books SET availability = ? WHERE ISBN = '" + isbn + "'";
         	try {
                 statement = conn.prepareStatement(updateAvailability);
-                statement.setInt(1, avail);
+                statement.setString(1, availString);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 additionLabel.setText("Oops... Something went WRONG");
@@ -286,10 +336,11 @@ public class HomeController implements Initializable {
             }
         } else {
         	avail--;
-        	String updateAvailability = "UPDATE books SET availability = ? WHERE ISBN = " + isbn;
+        	availString = Integer.toString(avail);
+        	String updateAvailability = "UPDATE books SET availability = ? WHERE ISBN = '" + isbn + "'";
         	try {
                 statement = conn.prepareStatement(updateAvailability);
-                statement.setInt(1, avail);
+                statement.setString(1, availString);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 additionLabel.setText("Oops... Something went WRONG");
