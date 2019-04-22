@@ -69,12 +69,12 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<ModelTable, String> col_genre;
     @FXML private TableColumn<ModelTable, String> col_availability;
     
-    @FXML private TableView<ModelTable> tableSearch;
-    @FXML private TableColumn<ModelTable, String> col_isbn_seach;
-    @FXML private TableColumn<ModelTable, String> col_title_seach;
-    @FXML private TableColumn<ModelTable, String> col_author_seach;
-    @FXML private TableColumn<ModelTable, String> col_genre_seach;
-    @FXML private TableColumn<ModelTable, String> col_availability_seach;
+    @FXML private TableView<ModelTable> table2;
+    @FXML private TableColumn<ModelTable, String> col_isbn2;
+    @FXML private TableColumn<ModelTable, String> col_title2;
+    @FXML private TableColumn<ModelTable, String> col_author2;
+    @FXML private TableColumn<ModelTable, String> col_genre2;
+    @FXML private TableColumn<ModelTable, String> col_availability2;
 
     //admin manage books
     @FXML private Pane manageBooksPane;
@@ -97,6 +97,7 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<ModelTable, Integer> col_availability1;
     @FXML private Button addBookButton;
     @FXML private Button removeBookButton;
+    @FXML private Button showAllBooksButton;
     @FXML private Label bookStatus;
 
     private String userName;
@@ -163,20 +164,21 @@ public class HomeController implements Initializable {
                         rs.getString("genre"),
                         rs.getString("availability")));
 
-                col_isbn_seach.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-                col_title_seach.setCellValueFactory(new PropertyValueFactory<>("title"));
-                col_author_seach.setCellValueFactory(new PropertyValueFactory<>("author"));
-                col_genre_seach.setCellValueFactory(new PropertyValueFactory<>("genre"));
-                col_availability_seach.setCellValueFactory(new PropertyValueFactory<>("availability"));
+                col_isbn2.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+                col_title2.setCellValueFactory(new PropertyValueFactory<>("title"));
+                col_author2.setCellValueFactory(new PropertyValueFactory<>("author"));
+                col_genre2.setCellValueFactory(new PropertyValueFactory<>("genre"));
+                col_availability2.setCellValueFactory(new PropertyValueFactory<>("availability"));
 
                 //calls all the getters and setters in ModelTable
-                tableSearch.setItems(observableList);
+                table2.setItems(observableList);
                 manageTable.setItems(observableList);
 //                refreshTables();
             }
     	} catch (SQLException e) {
     		System.out.println(e.getMessage());
     	}
+//    	refreshTables();
     }
 
     public void addBook(){
@@ -278,10 +280,17 @@ public class HomeController implements Initializable {
                 col_author1.setCellValueFactory(new PropertyValueFactory<>("author"));
                 col_genre1.setCellValueFactory(new PropertyValueFactory<>("genre"));
                 col_availability1.setCellValueFactory(new PropertyValueFactory<>("availability"));
+                
+                col_isbn2.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+                col_title2.setCellValueFactory(new PropertyValueFactory<>("title"));
+                col_author2.setCellValueFactory(new PropertyValueFactory<>("author"));
+                col_genre2.setCellValueFactory(new PropertyValueFactory<>("genre"));
+                col_availability2.setCellValueFactory(new PropertyValueFactory<>("availability"));
 
 
                 //calls all the getters and setters in ModelTable
                 table.setItems(observableList);
+                table2.setItems(observableList);
                 manageTable.setItems(observableList);
             }
         } catch (SQLException e) {
@@ -430,6 +439,7 @@ public class HomeController implements Initializable {
     public void changePanel(MouseEvent event){
         if(event.getSource()==overViewButton){
             overViewPane.toFront();
+            refreshTables();
         }
         if(event.getSource()==myAccountButton){
             myAccountPane.toFront();
@@ -484,10 +494,17 @@ public class HomeController implements Initializable {
                 col_author1.setCellValueFactory(new PropertyValueFactory<>("author"));
                 col_genre1.setCellValueFactory(new PropertyValueFactory<>("genre"));
                 col_availability1.setCellValueFactory(new PropertyValueFactory<>("availability"));
+                
+                col_isbn2.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+                col_title2.setCellValueFactory(new PropertyValueFactory<>("title"));
+                col_author2.setCellValueFactory(new PropertyValueFactory<>("author"));
+                col_genre2.setCellValueFactory(new PropertyValueFactory<>("genre"));
+                col_availability2.setCellValueFactory(new PropertyValueFactory<>("availability"));
 
 
                 //calls all the getters and setters in ModelTable
                 table.setItems(observableList);
+                table2.setItems(observableList);
                 manageTable.setItems(observableList);
             }
         } catch (SQLException e) {

@@ -159,26 +159,6 @@
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="searchBooksPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label layoutX="14.0" layoutY="36.0" text="Seach Books">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="searchBookTextfield" layoutX="14.0" layoutY="132.0" />
-                  <Button fx:id="searchBookButton" layoutX="192.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#searchBookFunction" text="Search" />
-                  <TableView fx:id="tableSearch" layoutX="14.0" layoutY="194.0" prefHeight="200.0" prefWidth="507.0">
-                    <columns>
-                      <TableColumn fx:id="col_isbn_search" prefWidth="70.0" text="ISBN" />
-                      <TableColumn fx:id="col_title_seach" prefWidth="176.0" text="Title" />
-                        <TableColumn fx:id="col_author_seach" prefWidth="110.0" text="Author" />
-                        <TableColumn fx:id="col_genre_seach" prefWidth="78.0" text="Genre" />
-                        <TableColumn fx:id="col_availability_seach" prefWidth="72.0" text="Availability" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
             <Pane fx:id="overViewPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
                   <HBox alignment="CENTER" layoutX="14.0" layoutY="102.0" prefHeight="58.0" prefWidth="830.0" spacing="40.0">
@@ -430,6 +410,31 @@
                      </font>
                   </Text>
                   <Button fx:id="editBookButton" layoutX="857.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#editBook" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: blue; -fx-background-radius: 20;" text="Edit" textFill="WHITE" />
+               </children>
+            </Pane>
+            <Pane fx:id="searchBooksPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="14.0" layoutY="198.0" prefHeight="351.0" prefWidth="830.0">
+                     <children>
+                        <TableView fx:id="table2" layoutX="119.0" layoutY="-52.0" prefHeight="352.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="col_isbn2" prefWidth="75.0" text="ISBN" />
+                              <TableColumn fx:id="col_title2" prefWidth="200.0" text="Title" />
+                              <TableColumn fx:id="col_author2" prefWidth="200.0" text="Author" />
+                              <TableColumn fx:id="col_genre2" prefWidth="200.0" text="Genre" />
+                              <TableColumn fx:id="col_availability2" prefWidth="154.0" text="Number Available" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="14.0" layoutY="36.0" text="Seach Books">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="searchBookTextfield" layoutX="14.0" layoutY="132.0" />
+                  <Button fx:id="searchBookButton" layoutX="192.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#searchBookFunction" text="Search" />
+                  <Button fx:id="showAllBooksButton" layoutX="305.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#refreshTables" text="Show All Books" />
                </children>
             </Pane>
          </children>
