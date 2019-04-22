@@ -84,6 +84,11 @@ public class HomeController implements Initializable {
     @FXML private TextField addGenre;
     @FXML private TextField addAvailability;
     @FXML private TextField removeISBN;
+    @FXML private TextField editISBN;
+    @FXML private TextField editTitle;
+    @FXML private TextField editAuthor;
+    @FXML private TextField editGenre;
+    @FXML private TextField editAvailability;
     @FXML private TableView<ModelTable> manageTable;
     @FXML private TableColumn<ModelTable, Integer> col_isbn1;
     @FXML private TableColumn<ModelTable, String> col_title1;
@@ -217,6 +222,33 @@ public class HomeController implements Initializable {
             }
         } catch (SQLException e) {
             bookStatus.setText("Incorrect ISBN");
+            bookStatus.setTextFill(Color.RED);
+        }
+        refreshTables();
+    }
+    
+    public void editBook() {
+    	this.isbn = editISBN.getText();
+        this.title = editTitle.getText();
+        this.author = editAuthor.getText();
+        this.genre = editGenre.getText();
+        this.availability = editAvailability.getText();
+        
+        String editBookSql = "UPDATE books SET title = ?, author = ?, genre = ?, availability = ? WHERE ISBN = ?";
+        try {
+            statement = conn.prepareStatement(editBookSql);
+            statement.setString(1, title);
+            statement.setString(2, author);
+            statement.setString(3, genre);
+            statement.setString(4, availability);
+            statement.setString(5, isbn);
+            statement.executeUpdate();
+
+            bookStatus.setText(title + " Modified");
+            bookStatus.setTextFill(Color.GREEN);
+
+        } catch (SQLException e) {
+            bookStatus.setText("Missing Fields or ISBN not found");
             bookStatus.setTextFill(Color.RED);
         }
         refreshTables();
