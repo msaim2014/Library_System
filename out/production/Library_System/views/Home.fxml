@@ -393,7 +393,7 @@
                   </Text>
                   <Button fx:id="addBookButton" layoutX="891.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#addBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #35DD33; -fx-background-radius: 20;" text="Add" textFill="WHITE" />
                   <Button fx:id="removeBookButton" layoutX="160.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#removeBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32; -fx-background-radius: 20;" text="Remove" textFill="WHITE" />
-                  <Label fx:id="bookStatus" alignment="CENTER_RIGHT" layoutX="345.0" layoutY="303.0" prefHeight="25.0" prefWidth="245.0" textAlignment="RIGHT" />
+                  <Label fx:id="bookStatus" alignment="CENTER_RIGHT" layoutX="357.0" layoutY="170.0" prefHeight="25.0" prefWidth="245.0" textAlignment="RIGHT" />
                   <Text layoutX="32.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit">
                      <font>
                         <Font size="16.0" />
