@@ -1,5 +1,9 @@
 package controllers;
 
+/**
+ * Book class that holds the information for a book
+ *
+ */
 public class Book {
     private String isbn;
     private String title;
@@ -7,6 +11,14 @@ public class Book {
     private String genre;
     private String availability;
 
+    /**
+     * Constructor that automatically creates a book class
+     * @param isbn ISBN of the book
+     * @param title Title of the book
+     * @param author Author of the book
+     * @param genre Genre of the book
+     * @param availability How many are available
+     */
     public Book(String isbn, String title, String author, String genre, String availability) {
         this.isbn = isbn;
         this.title = title;

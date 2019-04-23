@@ -22,6 +22,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Login Controller that handles the login function
+ * If a user is part of the database, they will be redirected to the home page
+ * If the user is not, an error message will show up
+ * A user can register as long as the username is unique
+ *
+ */
 public class LoginController implements Initializable {
 
     @FXML private TextField userUsername;

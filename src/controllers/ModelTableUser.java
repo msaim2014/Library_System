@@ -1,5 +1,9 @@
 package controllers;
 
+/**
+ * Model Table that displays the information of the checkout books for each user
+ *
+ */
 public class ModelTableUser {
     String ISBN, username, checkout_date, return_date;
 
@@ -35,6 +39,13 @@ public class ModelTableUser {
         this.return_date = return_date;
     }
 
+    /**
+     * Constructor that will automatically create a ModelTableUser Object
+     * @param username username of the user
+     * @param ISBN ISBN of the book
+     * @param checkout_date checkout date of the book for this user
+     * @param return_date return date of the book for this user
+     */
     public ModelTableUser(String username, String ISBN, String checkout_date, String return_date){
         this.ISBN = ISBN;
         this.username = username;

@@ -122,10 +122,16 @@ public class HomeController implements Initializable {
     private String checkIn;
     private String availability;
 
+    /**
+     * Database connection
+     */
     public HomeController(){
         conn = ConnectDB.conDB();
     }
 
+    /**
+     * Function that allows a user to change the username and/or password
+     */
     public void editAccount(){
         String name = textUsername.getText();
         String pass = textPassword.getText();
@@ -156,6 +162,10 @@ public class HomeController implements Initializable {
 
     }
     
+    /**
+     * Function that will search whether a book with a given title exists or not.
+     * The information is displayed in a table
+     */
     public void searchBookFunction() {
     	String bookSearched = searchBookTextfield.getText();
     	String seachBookSQL = "SELECT * FROM books WHERE title LIKE '%" + bookSearched + "%'";
@@ -189,6 +199,10 @@ public class HomeController implements Initializable {
 //    	refreshTables();
     }
 
+    /**
+     * Adds a book to the database
+     * The information given is entered into the system, the values are captured and entered into the database
+     */
     public void addBook(){
         this.isbn = addISBN.getText();
         this.title = addTitle.getText();
@@ -217,6 +231,11 @@ public class HomeController implements Initializable {
         refreshTables();
     }
 
+    /**
+     * Deletes a book from the database
+     * looks for an ISBN. If ISBN exists, it will delete that book
+     * will return an error if the ISBN does not exit
+     */
     public void removeBook(){
         this.isbn = removeISBN.getText();
         String removeBookSql = "DELETE FROM books WHERE isbn = " + isbn;
@@ -237,6 +256,11 @@ public class HomeController implements Initializable {
         refreshTables();
     }
     
+    /**
+     * edit book function that will update the information of a book
+     * the function looks for the primary key (ISBN) and then it will run an update query to update the values
+     * will return an error is the ISBN does not exist
+     */
     public void editBook() {
     	this.isbn = editISBN.getText();
         this.title = editTitle.getText();
@@ -264,6 +288,9 @@ public class HomeController implements Initializable {
         refreshTables();
     }
 
+    /**
+     * refresh tables function that will display all books in our database
+     */
     public void refreshTables(){
         String getBooksSql = "SELECT * FROM books";
         observableList.clear();
@@ -307,7 +334,13 @@ public class HomeController implements Initializable {
             System.err.println(e.getMessage());
         }
     }
-
+    
+    /**
+     * function that will insert a new line on the checkout table on the database which will indicate
+     * that a book has been checked out by the user
+     * the checkout and return date are auto generated, with return date being 21 days after the checkout date
+     * the quantity is decreased by 1
+     */
     public void checkOutBook() {
         String userName = account.getUsername();
 
@@ -342,6 +375,11 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * return book function. This process will delete the entry from the checkout table
+     * which will result in a context of a book being returned. Also this will increase the quantity
+     * of that specific book by 1
+     */
     public void returnBook(){
         String userName = account.getUsername();
         String returnBookSql = "DELETE FROM checkout WHERE ISBN = '" + isbn + "'" + "AND username = '" + userName + "'";
@@ -357,7 +395,16 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * Determines wether a book exists or no
+     * @return true is there is a book, false otherwise
+     */
     public boolean hasBook(){return true;}
+    
+    /**
+     * This functionality will update the quantity of each book in the library
+     * @param value is either increase, or decrease, which will indicate which query to process
+     */
     public void updateBookAvailability(String value) {
     	String getAvailability = "SELECT availability FROM books WHERE ISBN = '" + isbn + "'";
     	int avail = 0;
@@ -403,6 +450,10 @@ public class HomeController implements Initializable {
     	
     }
     
+    /**
+     * Display the books that have been checked out by a specific user
+     * It checks for the username on the database, and it will display all the checkouts in a table
+     */
     public void displayMyCheckouts() {
     	String userQuery = "SELECT * FROM checkout WHERE username = '" + account.getUsername() + "'";
     	observableListUser.clear();
@@ -428,6 +479,10 @@ public class HomeController implements Initializable {
     	}
     }
 
+    /**
+     * Select the book on a table
+     * @param event listens to a MouseEvent that will get triggered when a book is selected
+     */
     public void getSelected(MouseEvent event){
         ModelTable res = null;
         if(event.getSource()==table){
@@ -435,13 +490,6 @@ public class HomeController implements Initializable {
         }else if(event.getSource()==manageTable){
             res = manageTable.getSelectionModel().getSelectedItem();
         }
-
-        //not working
-        //book.setIsbn(res.getIsbn());
-        //book.setTitle(res.getTitle());
-        //book.setAuthor(res.getAuthor().toString());
-        //book.setGenre(res.getGenre());
-        //book.setavailability(res.getavailability());
 
         this.isbn = res.getIsbn();
         this.title = res.getTitle();
@@ -464,12 +512,20 @@ public class HomeController implements Initializable {
         System.out.println(checkIn);
     }
 
+    /**
+     * Get user account information
+     * @param account get the account information from Class Account
+     */
     public void setUserInfo(Account account){
         name.setText(account.getUsername());
         myAccountUsername.setText(account.getUsername());
         myAccountPassword.setText(account.getPass());
     }
 
+    /**
+     * Change the view of the system when a specific button is clicked
+     * @param event MouseEvent that changes function when a button is clicked
+     */
     public void changePanel(MouseEvent event){
         if(event.getSource()==overViewButton){
             overViewPane.toFront();
@@ -487,6 +543,10 @@ public class HomeController implements Initializable {
         }
     }
     
+    /**
+     * Logout function that will redirect the user to the login page
+     * @param event MouseEvent that waits for user input and will act upon it
+     */
     public void logoutFunction(MouseEvent event) {
     	if(event.getSource()==signoutButton) {
     		try{
@@ -506,6 +566,9 @@ public class HomeController implements Initializable {
     	}
     }
 
+    /**
+     * Function that will auto-populate the tables with the information in the books table of the database
+     */
     public void createTables(){
         String getBooksSql = "SELECT * FROM books";
         try {
@@ -549,6 +612,9 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * initialize the application
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         overViewPane.toFront();

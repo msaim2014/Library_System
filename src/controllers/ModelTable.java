@@ -43,6 +43,14 @@ public class ModelTable {
         this.availability = numAvailable;
     }
 
+    /**
+     * Constructor that will create a ModelTable class
+     * @param isbn ISBN of the book
+     * @param title Title of the book
+     * @param author Author of the book
+     * @param genre Genre of the book
+     * @param numAvailable How many books are available
+     */
     public ModelTable(String isbn, String title, String author, String genre, String numAvailable){
         this.isbn = isbn;
         this.title = title;

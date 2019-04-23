@@ -6,6 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main Class that runs the application
+ *
+ */
 public class Main extends Application {
 
     private double x, y;

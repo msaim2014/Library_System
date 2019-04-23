@@ -7,6 +7,10 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Displays information for the system
+ *
+ */
 public class ItemsController implements Initializable {
     @FXML Label title;
     private String newTitle;
