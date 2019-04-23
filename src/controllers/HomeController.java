@@ -100,13 +100,14 @@ public class HomeController implements Initializable {
     @FXML private Button showAllBooksButton;
     @FXML private Label bookStatus;
 
-    private String userName;
-    private String userPass;
+    //private String userName;
+    //private String userPass;
     private Book book;
     Connection conn = null;
     ObservableList<ModelTable> observableList = FXCollections.observableArrayList();
     PreparedStatement statement = null;
     ResultSet res = null;
+    Account account = Account.getInstance();
 
     private String isbn;
     private String title;
@@ -123,6 +124,8 @@ public class HomeController implements Initializable {
     public void editAccount(){
         String name = textUsername.getText();
         String pass = textPassword.getText();
+        String userName =account.getUsername();
+
         if("".equals(name) || "".equals(pass)){
             accountChangeStatus.setText("Please Enter name and password");
             accountChangeStatus.setTextFill(Color.RED);
@@ -134,10 +137,10 @@ public class HomeController implements Initializable {
                 statement.executeUpdate();
                 accountChangeStatus.setText("Success!");
                 accountChangeStatus.setTextFill(Color.GREEN);
-                this.userName = name;
-                this.userPass = pass;
-                myAccountUsername.setText(userName);
-                myAccountPassword.setText(userPass);
+                account.setUsername(name);
+                account.setPass(pass);
+                myAccountUsername.setText(account.getUsername());
+                myAccountPassword.setText(account.getPass());
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 accountChangeStatus.setText("Opps... password/username taken");
@@ -301,6 +304,8 @@ public class HomeController implements Initializable {
     }
 
     public void checkOutBook() {
+        String userName = account.getUsername();
+
         String addBookSql = "Insert INTO checkout (username, ISBN, checkout_date, return_date) VALUES (?,?,?,?)";
         java.sql.Date todayDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         String today = todayDate.toString();
@@ -333,6 +338,7 @@ public class HomeController implements Initializable {
     }
 
     public void returnBook(){
+        String userName = account.getUsername();
         String returnBookSql = "DELETE FROM checkout WHERE ISBN = '" + isbn + "'" + "AND username = '" + userName + "'";
         try {
             statement = conn.prepareStatement(returnBookSql);
@@ -428,12 +434,10 @@ public class HomeController implements Initializable {
         System.out.println(checkIn);
     }
 
-    public void setUserInfo(String userName, String userPass){
-        this.userName = userName;
-        this.userPass = userPass;
-        name.setText(userName);
-        myAccountUsername.setText(userName);
-        myAccountPassword.setText(userPass);
+    public void setUserInfo(Account account){
+        name.setText(account.getUsername());
+        myAccountUsername.setText(account.getUsername());
+        myAccountPassword.setText(account.getPass());
     }
 
     public void changePanel(MouseEvent event){

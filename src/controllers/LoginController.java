@@ -24,25 +24,15 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    @FXML
-    private TextField userUsername;
-    @FXML
-    private TextField adminUsername;
-    @FXML
-    private TextField userPassword;
-    @FXML
-    private TextField adminPassword;
-    @FXML
-    private Button userSignin;
-    @FXML
-    private Button adminSignIn;
-    @FXML
-    private Button userRegister;
-    @FXML
-    private Button adminRegister;
-    @FXML
-    private Label userLoginError;
-
+    @FXML private TextField userUsername;
+    @FXML private TextField adminUsername;
+    @FXML private TextField userPassword;
+    @FXML private TextField adminPassword;
+    @FXML private Button userSignin;
+    @FXML private Button adminSignIn;
+    @FXML private Button userRegister;
+    @FXML private Button adminRegister;
+    @FXML private Label userLoginError;
 
     private String name;
     private String password;
@@ -52,6 +42,7 @@ public class LoginController implements Initializable {
     PreparedStatement insert = null;
     PreparedStatement insertTable = null;
     ResultSet resultSet = null;
+    private Account account = Account.getInstance();
 
     public void handleButtonAction(MouseEvent event){
         if(event.getSource()==userSignin){
@@ -64,7 +55,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    homeController.setUserInfo(name, password);
+                    homeController.setUserInfo(account);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -85,7 +76,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    homeController.setUserInfo(name, password);
+                    homeController.setUserInfo(account);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -106,7 +97,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    homeController.setUserInfo(name, password);
+                    homeController.setUserInfo(account);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -127,7 +118,7 @@ public class LoginController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
                     Parent root = (Parent) loader.load();
                     HomeController homeController = loader.getController();
-                    homeController.setUserInfo(name,password);
+                    homeController.setUserInfo(account);
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
@@ -147,8 +138,11 @@ public class LoginController implements Initializable {
     private String userLogin(){
         String username = userUsername.getText().toString();
         String password = userPassword.getText().toString();
-        this.name = username;
-        this.password = password;
+        account.setUsername(username);
+        account.setPass(password);
+        account.setIsAdmin(0);
+        //this.name = username;
+        //this.password = password;
 
         String checkSql = "SELECT * FROM users WHERE username=? and password=?";
         try {
@@ -178,7 +172,10 @@ public class LoginController implements Initializable {
     private String adminLogin(){
         String username = adminUsername.getText().toString();
         String password = adminPassword.getText().toString();
-        this.name = username;
+        account.setUsername(username);
+        account.setPass(password);
+        account.setIsAdmin(1);
+        //this.name = username;
 
         String checkSql = "SELECT * FROM users WHERE username=? and password=?";
         try {
@@ -208,8 +205,11 @@ public class LoginController implements Initializable {
     private String userRegister(){
         String username = userUsername.getText().toString();
         String password = userPassword.getText().toString();
-        this.name = username;
-        this.password = password;
+        account.setUsername(username);
+        account.setPass(password);
+        account.setIsAdmin(0);
+        //this.name = username;
+        //this.password = password;
 
         String checkSql = "SELECT * FROM users WHERE username=?";
         String registerSql = "INSERT INTO users (username, password) VALUES (?,?)";
@@ -246,7 +246,10 @@ public class LoginController implements Initializable {
     private String adminRegister(){
         String username = adminUsername.getText().toString();
         String password = adminPassword.getText().toString();
-        this.name = username;
+        account.setUsername(username);
+        account.setPass(password);
+        account.setIsAdmin(1);
+        //this.name = username;
 
         String checkSql = "SELECT * FROM users WHERE username=?";
         String registerSql = "INSERT INTO users (username, password, is_admin) VALUES (?,?,1)";
