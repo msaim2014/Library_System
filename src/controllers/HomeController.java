@@ -75,6 +75,12 @@ public class HomeController implements Initializable {
     @FXML private TableColumn<ModelTable, String> col_author2;
     @FXML private TableColumn<ModelTable, String> col_genre2;
     @FXML private TableColumn<ModelTable, String> col_availability2;
+    
+    @FXML private TableView<ModelTableUser> table3;
+    @FXML private TableColumn<ModelTableUser, String> col_usernameU;
+    @FXML private TableColumn<ModelTableUser, String> col_ISBNU;
+    @FXML private TableColumn<ModelTableUser, String> col_checkoutDateU;
+    @FXML private TableColumn<ModelTableUser, String> col_returnDateU;
 
     //admin manage books
     @FXML private Pane manageBooksPane;
@@ -100,11 +106,10 @@ public class HomeController implements Initializable {
     @FXML private Button showAllBooksButton;
     @FXML private Label bookStatus;
 
-    //private String userName;
-    //private String userPass;
     private Book book;
     Connection conn = null;
     ObservableList<ModelTable> observableList = FXCollections.observableArrayList();
+    ObservableList<ModelTableUser> observableListUser = FXCollections.observableArrayList();
     PreparedStatement statement = null;
     ResultSet res = null;
     Account account = Account.getInstance();
@@ -397,6 +402,31 @@ public class HomeController implements Initializable {
         }
     	
     }
+    
+    public void displayMyCheckouts() {
+    	String userQuery = "SELECT * FROM checkout WHERE username = '" + account.getUsername() + "'";
+    	observableListUser.clear();
+    	try {
+    		ResultSet rs = conn.createStatement().executeQuery(userQuery);
+            while(rs.next()){
+            	observableListUser.add(new ModelTableUser(
+                        rs.getString("username"),
+                        rs.getString("ISBN"),
+                        rs.getString("checkout_date"),
+                        rs.getString("return_date")));
+
+                col_usernameU.setCellValueFactory(new PropertyValueFactory<>("username"));
+                col_ISBNU.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
+                col_checkoutDateU.setCellValueFactory(new PropertyValueFactory<>("checkout_date"));
+                col_returnDateU.setCellValueFactory(new PropertyValueFactory<>("return_date"));
+
+                //calls all the getters and setters in ModelTable
+                table3.setItems(observableListUser);
+            }
+    	} catch (SQLException e) {
+    		System.out.println(e.getMessage());
+    	}
+    }
 
     public void getSelected(MouseEvent event){
         ModelTable res = null;
@@ -447,6 +477,7 @@ public class HomeController implements Initializable {
         }
         if(event.getSource()==myAccountButton){
             myAccountPane.toFront();
+            displayMyCheckouts();
         }
         if(event.getSource()==manageBooksButton){
             manageBooksPane.toFront();

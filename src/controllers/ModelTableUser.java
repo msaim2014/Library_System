@@ -35,7 +35,7 @@ public class ModelTableUser {
         this.return_date = return_date;
     }
 
-    public ModelTableUser(String ISBN, String username, String checkout_date, String return_date){
+    public ModelTableUser(String username, String ISBN, String checkout_date, String return_date){
         this.ISBN = ISBN;
         this.username = username;
         this.checkout_date = checkout_date;

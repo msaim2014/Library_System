@@ -115,75 +115,6 @@
                   <Button fx:id="showAllBooksButton" layoutX="305.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#refreshTables" text="Show All Books" />
                </children>
             </Pane>
-            <Pane fx:id="myAccountPane" prefHeight="587.0" prefWidth="960.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label layoutX="38.0" layoutY="53.0" text="My Account">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <VBox layoutX="38.0" layoutY="115.0" prefHeight="200.0" prefWidth="363.0">
-                     <children>
-                        <HBox prefHeight="37.0" prefWidth="396.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Name:">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="SansSerif Regular" size="16.0" />
-                                 </font>
-                              </Text>
-                              <Text fx:id="myAccountUsername" strokeType="OUTSIDE" strokeWidth="0.0" text="userName">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="SansSerif Regular" size="16.0" />
-                                 </font>
-                              </Text>
-                              <TextField fx:id="textUsername" alignment="CENTER_RIGHT">
-                                 <font>
-                                    <Font name="SansSerif Regular" size="14.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="37.0" prefWidth="396.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:   ">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="SansSerif Regular" size="16.0" />
-                                 </font>
-                              </Text>
-                              <Text fx:id="myAccountPassword" strokeType="OUTSIDE" strokeWidth="0.0" text="password">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="SansSerif Regular" size="16.0" />
-                                 </font>
-                              </Text>
-                              <TextField fx:id="textPassword" alignment="CENTER_RIGHT">
-                                 <font>
-                                    <Font name="SansSerif Regular" size="14.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <Button fx:id="editButton" layoutX="836.0" layoutY="530.0" mnemonicParsing="false" onMouseClicked="#editAccount" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #35DD33; -fx-background-radius: 20;" text="Save" textFill="WHITE" />
-                  <Label fx:id="accountChangeStatus" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="313.0" layoutY="534.0" prefHeight="20.0" prefWidth="507.0">
-                     <font>
-                        <Font name="SansSerif Regular" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
             <Pane fx:id="manageBooksPane" prefHeight="587.0" prefWidth="950.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="15.0" layoutY="14.0" text="Manage Books">
@@ -435,6 +366,88 @@
                   <Button fx:id="checkOutButton" layoutX="679.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#checkOutBook" style="-fx-background-color: #35DD33; -fx-background-radius: 20;" text="Checkout" textFill="WHITE" />
                   <Label fx:id="additionLabel" alignment="CENTER_RIGHT" layoutX="23.0" layoutY="544.0" prefHeight="17.0" prefWidth="623.0" textAlignment="CENTER" textFill="GREEN" />
                   <Button fx:id="returnButton" layoutX="764.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#returnBook" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #DC3B32; -fx-background-radius: 20;" text="Return" textFill="WHITE" />
+               </children>
+            </Pane>
+            <Pane fx:id="myAccountPane" prefHeight="587.0" prefWidth="960.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label layoutX="38.0" layoutY="53.0" text="My Account">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="38.0" layoutY="115.0" prefHeight="200.0" prefWidth="363.0">
+                     <children>
+                        <HBox prefHeight="37.0" prefWidth="396.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Name:">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="myAccountUsername" strokeType="OUTSIDE" strokeWidth="0.0" text="userName">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="textUsername" alignment="CENTER_RIGHT">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="37.0" prefWidth="396.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:   ">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="myAccountPassword" strokeType="OUTSIDE" strokeWidth="0.0" text="password">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="textPassword" alignment="CENTER_RIGHT">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button fx:id="editButton" layoutX="419.0" layoutY="135.0" mnemonicParsing="false" onMouseClicked="#editAccount" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #35DD33; -fx-background-radius: 20;" text="Save" textFill="WHITE" />
+                  <Label fx:id="accountChangeStatus" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="313.0" layoutY="534.0" prefHeight="20.0" prefWidth="507.0">
+                     <font>
+                        <Font name="SansSerif Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="307.0" text="My Checkouts">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="table3" layoutX="24.0" layoutY="344.0" prefHeight="200.0" prefWidth="391.0">
+                    <columns>
+                      <TableColumn fx:id="col_usernameU" prefWidth="94.0" text="Username" />
+                      <TableColumn fx:id="col_ISBNU" prefWidth="89.0" text="ISBN" />
+                        <TableColumn fx:id="col_checkoutDateU" prefWidth="100.0" text="Checkout Date" />
+                        <TableColumn fx:id="col_returnDateU" prefWidth="107.0" text="Return Date" />
+                    </columns>
+                  </TableView>
                </children>
             </Pane>
          </children>
