@@ -535,7 +535,7 @@ public class HomeController implements Initializable {
             myAccountPane.toFront();
             displayMyCheckouts();
         }
-        if(event.getSource()==manageBooksButton){
+        if(event.getSource()==manageBooksButton && account.getIsAdmin() == 1){
             manageBooksPane.toFront();
         }
         if(event.getSource()==searchBooksButton) {
