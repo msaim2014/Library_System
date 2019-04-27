@@ -13,8 +13,8 @@ public class ConnectDB {
     static String dbName = "library_system";
     static String url = "jdbc:mysql://localhost:3306/"+dbName;
     static String username = "root";
-//    static String password = "Library2019";
-    static String password = "";
+    static String password = "Library2019";
+//    static String password = "";
 
     /**
      * After the information is put, the connection is tested

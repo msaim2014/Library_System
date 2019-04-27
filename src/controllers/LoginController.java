@@ -66,6 +66,7 @@ public class LoginController implements Initializable {
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
+                    stage1.resizableProperty().setValue(false);
                     stage1.show();
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
@@ -87,6 +88,7 @@ public class LoginController implements Initializable {
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
+                    stage1.resizableProperty().setValue(false);
                     stage1.show();
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
@@ -108,6 +110,7 @@ public class LoginController implements Initializable {
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
+                    stage1.resizableProperty().setValue(false);
                     stage1.show();
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
@@ -129,6 +132,7 @@ public class LoginController implements Initializable {
 
                     Stage stage1 = new Stage();
                     stage1.setScene(new Scene(root));
+                    stage1.resizableProperty().setValue(false);
                     stage1.show();
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
