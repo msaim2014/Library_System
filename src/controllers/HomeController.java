@@ -30,6 +30,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+/**
+ * HomeController has control over everything that goes on within the
+ * main application page.
+ */
 public class HomeController implements Initializable {
     @FXML private VBox prItems = null;
 
@@ -44,7 +48,6 @@ public class HomeController implements Initializable {
     //Search
     @FXML private Button searchBookButton;
     @FXML private TextField searchBookTextfield;
-    
 
     //overview
     @FXML private Label name;
@@ -133,6 +136,7 @@ public class HomeController implements Initializable {
      * Function that allows a user to change the username and/or password
      */
     public void editAccount(){
+        //name is the new username and userName is the old one
         String name = textUsername.getText();
         String pass = textPassword.getText();
         String userName =account.getUsername();
@@ -141,7 +145,6 @@ public class HomeController implements Initializable {
             accountChangeStatus.setText("Please Enter name and password");
             accountChangeStatus.setTextFill(Color.RED);
         }else{
-            //name is the new username and userName is the old one
             String changeUserSql = "UPDATE users SET username='"+name+"', password='"+pass+ "' WHERE username='"+userName+"'";
             try {
                 statement=conn.prepareStatement(changeUserSql);
@@ -171,8 +174,6 @@ public class HomeController implements Initializable {
     	String seachBookSQL = "SELECT * FROM books WHERE title LIKE '%" + bookSearched + "%'";
     	observableList.clear();
     	try {
-//    		statement = conn.prepareStatement(seachBookSQL);
-//    		statement.execute();
     		ResultSet rs = conn.createStatement().executeQuery(seachBookSQL);
             while(rs.next()){
                 observableList.add(new ModelTable(
@@ -191,17 +192,16 @@ public class HomeController implements Initializable {
                 //calls all the getters and setters in ModelTable
                 table2.setItems(observableList);
                 manageTable.setItems(observableList);
-//                refreshTables();
             }
     	} catch (SQLException e) {
     		System.out.println(e.getMessage());
     	}
-//    	refreshTables();
     }
 
     /**
      * Adds a book to the database
-     * The information given is entered into the system, the values are captured and entered into the database
+     * The information given is entered into the system,
+     * the values are captured and entered into the database
      */
     public void addBook(){
         this.isbn = addISBN.getText();
@@ -227,7 +227,6 @@ public class HomeController implements Initializable {
             bookStatus.setText("Missing Fields or Duplicate ISBN");
             bookStatus.setTextFill(Color.RED);
         }
-        //manageTable.getItems().add(new ModelTable(isbn, title, author, genre, availability));
         refreshTables();
     }
 
@@ -322,7 +321,6 @@ public class HomeController implements Initializable {
                 col_genre2.setCellValueFactory(new PropertyValueFactory<>("genre"));
                 col_availability2.setCellValueFactory(new PropertyValueFactory<>("availability"));
 
-
                 //calls all the getters and setters in ModelTable
                 table.setItems(observableList);
                 table2.setItems(observableList);
@@ -336,10 +334,11 @@ public class HomeController implements Initializable {
     }
     
     /**
-     * function that will insert a new line on the checkout table on the database which will indicate
-     * that a book has been checked out by the user
-     * the checkout and return date are auto generated, with return date being 21 days after the checkout date
-     * the quantity is decreased by 1
+     * function that will insert a new line on the checkout table on
+     * the database which will indicate that a book has been checked
+     * out by the user the checkout and return date are auto generated,
+     * with return date being 21 days after the checkout date the quantity
+     * is decreased by 1
      */
     public void checkOutBook() {
         String userName = account.getUsername();
@@ -377,8 +376,8 @@ public class HomeController implements Initializable {
 
     /**
      * return book function. This process will delete the entry from the checkout table
-     * which will result in a context of a book being returned. Also this will increase the quantity
-     * of that specific book by 1
+     * which will result in a context of a book being returned. Also this will increase
+     * the quantity of that specific book by 1
      */
     public void returnBook(){
         String userName = account.getUsername();
@@ -394,12 +393,6 @@ public class HomeController implements Initializable {
             additionLabel.setTextFill(Color.RED);
         }
     }
-
-    /**
-     * Determines wether a book exists or no
-     * @return true is there is a book, false otherwise
-     */
-    public boolean hasBook(){return true;}
     
     /**
      * This functionality will update the quantity of each book in the library
@@ -445,9 +438,7 @@ public class HomeController implements Initializable {
                 additionLabel.setText("Oops... Something went WRONG");
                 additionLabel.setTextFill(Color.RED);
             }
-        	
         }
-    	
     }
     
     /**
@@ -598,7 +589,6 @@ public class HomeController implements Initializable {
                 col_author2.setCellValueFactory(new PropertyValueFactory<>("author"));
                 col_genre2.setCellValueFactory(new PropertyValueFactory<>("genre"));
                 col_availability2.setCellValueFactory(new PropertyValueFactory<>("availability"));
-
 
                 //calls all the getters and setters in ModelTable
                 table.setItems(observableList);

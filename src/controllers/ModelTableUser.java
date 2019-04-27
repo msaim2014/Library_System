@@ -2,7 +2,6 @@ package controllers;
 
 /**
  * Model Table that displays the information of the checkout books for each user
- *
  */
 public class ModelTableUser {
     String ISBN, username, checkout_date, return_date;
@@ -52,5 +51,4 @@ public class ModelTableUser {
         this.checkout_date = checkout_date;
         this.return_date = return_date;
     }
-
 }

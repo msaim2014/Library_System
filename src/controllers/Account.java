@@ -1,8 +1,7 @@
 package controllers;
 
 /**
- * Account class that holds the information for a user
- *
+ * singleton Account class that holds the information for a user
  */
 public class Account {
     private String username;

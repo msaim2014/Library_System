@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
  * If a user is part of the database, they will be redirected to the home page
  * If the user is not, an error message will show up
  * A user can register as long as the username is unique
- *
  */
 public class LoginController implements Initializable {
 
@@ -41,16 +40,17 @@ public class LoginController implements Initializable {
     @FXML private Button adminRegister;
     @FXML private Label userLoginError;
 
-    private String name;
-    private String password;
-
     Connection conn = null;
     PreparedStatement check = null;
     PreparedStatement insert = null;
-    PreparedStatement insertTable = null;
     ResultSet resultSet = null;
     private Account account = Account.getInstance();
 
+    /**
+     * sending the correct account information to the view
+     * if the login/register is correct
+     * @param event the button that is pressed
+     */
     public void handleButtonAction(MouseEvent event){
         if(event.getSource()==userSignin){
             if(userLogin().equals("Success")){
@@ -141,19 +141,24 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * connects to the database
+     */
     public LoginController(){
         conn = ConnectDB.conDB();
         System.out.println("Connection:"+conn);
     }
 
+    /**
+     * checks if the user logging in is a real user
+     * @return the status of the login
+     */
     private String userLogin(){
-        String username = userUsername.getText().toString();
-        String password = userPassword.getText().toString();
+        String username = userUsername.getText();
+        String password = userPassword.getText();
         account.setUsername(username);
         account.setPass(password);
         account.setIsAdmin(0);
-        //this.name = username;
-        //this.password = password;
 
         String checkSql = "SELECT * FROM users WHERE username=? and password=?";
         try {
@@ -179,14 +184,17 @@ public class LoginController implements Initializable {
             return "Exception";
         }
     }
-    
+
+    /**
+     * checks if the admin logging in is a real admin
+     * @return the status of the login
+     */
     private String adminLogin(){
-        String username = adminUsername.getText().toString();
-        String password = adminPassword.getText().toString();
+        String username = adminUsername.getText();
+        String password = adminPassword.getText();
         account.setUsername(username);
         account.setPass(password);
         account.setIsAdmin(1);
-        //this.name = username;
 
         String checkSql = "SELECT * FROM users WHERE username=? and password=?";
         try {
@@ -213,14 +221,16 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * checks if the user registering is unique
+     * @return the status of the login
+     */
     private String userRegister(){
-        String username = userUsername.getText().toString();
-        String password = userPassword.getText().toString();
+        String username = userUsername.getText();
+        String password = userPassword.getText();
         account.setUsername(username);
         account.setPass(password);
         account.setIsAdmin(0);
-        //this.name = username;
-        //this.password = password;
 
         String checkSql = "SELECT * FROM users WHERE username=?";
         String registerSql = "INSERT INTO users (username, password) VALUES (?,?)";
@@ -253,14 +263,17 @@ public class LoginController implements Initializable {
             return "Exception";
         }
     }
-    
+
+    /**
+     * checks if the admin registering is unique
+     * @return the status of the login
+     */
     private String adminRegister(){
-        String username = adminUsername.getText().toString();
-        String password = adminPassword.getText().toString();
+        String username = adminUsername.getText();
+        String password = adminPassword.getText();
         account.setUsername(username);
         account.setPass(password);
         account.setIsAdmin(1);
-        //this.name = username;
 
         String checkSql = "SELECT * FROM users WHERE username=?";
         String registerSql = "INSERT INTO users (username, password, is_admin) VALUES (?,?,1)";

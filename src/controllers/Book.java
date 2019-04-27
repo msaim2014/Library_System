@@ -2,7 +2,6 @@ package controllers;
 
 /**
  * Book class that holds the information for a book
- *
  */
 public class Book {
     private String isbn;

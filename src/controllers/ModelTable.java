@@ -1,5 +1,9 @@
 package controllers;
 
+/**
+ * ModelTable is the table being used with the
+ * observableList to fill the book tables
+ */
 public class ModelTable {
     String title, author, genre, isbn, availability;
 
@@ -58,5 +62,4 @@ public class ModelTable {
         this.genre = genre;
         this.availability = numAvailable;
     }
-
 }

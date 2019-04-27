@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 /**
  * Main Class that runs the application
- *
  */
 public class Main extends Application {
 
@@ -18,9 +17,6 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
         primaryStage.setTitle("Library System");
         primaryStage.setScene(new Scene(root));
-
-        //set stage borderless
-        //primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.resizableProperty().setValue(false);
 
         //drag it here

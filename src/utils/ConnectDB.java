@@ -6,7 +6,6 @@ import java.sql.SQLException;
 /**
  * Connect to the local database
  * databaseName, url with the JDBC connector, username and password are required
- *
  */
 public class ConnectDB {
     Connection connection = null;
