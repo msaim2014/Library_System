@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import controllers.Book;
 
+/**
+ * Unit tests to make sure Book class works as expected
+ */
 class JUnitTestBook {
 	
 	Book b = new Book("testISBN", "testTITLE", "testAUTHOR", "testGENRE", "testAVAILABILITY");
